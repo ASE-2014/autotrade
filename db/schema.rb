@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20140923202934) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "price",       precision: 10, scale: 2
     t.decimal  "min_price",   precision: 10, scale: 2
   end
 
