@@ -33,3 +33,6 @@ bower.json
 # IntelliJ
 .idea/
 /.idea/
+/*.iml
+*.ipr
+*.iws
