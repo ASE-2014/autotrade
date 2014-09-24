@@ -35,6 +35,13 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
   end
 
+  def destroy
+    @auction = Auction.find(params[:id])
+    @auction.destroy
+
+    redirect_to auctions_path
+  end
+
   private
   def auction_params
     params.require(:auction).permit(:title, :description, :min_price)
