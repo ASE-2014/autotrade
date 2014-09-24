@@ -48,3 +48,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'therubyracer',  platforms: :ruby
 gem 'rails_12factor'
 
+# For user authentication and rights management
+gem 'devise'
+
