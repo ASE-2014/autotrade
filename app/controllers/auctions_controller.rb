@@ -21,6 +21,20 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
   end
 
+  def update
+    @auction = Auction.find(params[:id])
+
+    if @auction.update(auction_params)
+      redirect_to @auction
+    else
+      render 'edit'
+    end
+  end
+
+  def edit
+    @auction = Auction.find(params[:id])
+  end
+
   private
   def auction_params
     params.require(:auction).permit(:title, :description, :min_price)
