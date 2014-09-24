@@ -1,16 +1,13 @@
 class BidsController < ApplicationController
-  def new
-    @bid = Bid.new
-  end
+
+  # Bids are final. Once a bid has been placed, it cannot be edited or deleted.
+  # So there's no need for update and destroy methods.
+  # Also no need for a show method since bids do not need their own view (they're listed per auction).
 
   def create
-    @bid = Bid.new(bid_params)
-
-    if @bid.save
-      redirect_to @bid
-    else
-      render 'new'
-    end
+    @auction = Auction.find(params[:auction_id])
+    @bid = @auction.bids.create(bids_params)
+    redirect_to auction_path(@auction)
   end
 
   private
