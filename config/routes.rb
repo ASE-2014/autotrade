@@ -4,6 +4,4 @@ Rails.application.routes.draw do
     resources :bids
   end
 
-  root 'welcome#index'
-
 end
