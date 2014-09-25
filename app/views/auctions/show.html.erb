@@ -6,18 +6,17 @@
     <strong>Description:</strong>
     <%= @auction.description %>
 </p>
-<p>
-    <strong>Start price:</strong>
-    <%= @auction.start_price %>
-</p>
 <h2>Bids</h2>
 <p>
-    <strong>Current top bid:</strong>
-    <%= @auction.start_price %>
+    <strong>Current Price:</strong>
+    <%= @auction.price %>
 </p>
 <p>
-    <strong>By:</strong>
-    <%= @bids.first.user_id %>
+    <strong>Bidder:</strong>
+    <% # @bids.first.user_id %>
+</p>
+<p>
+    <strong>All bids:</strong>
 </p>
 <%= render @bids %>
 <h2>Place a bid:</h2>

@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140924132056) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "start_price", precision: 10, scale: 2
+    t.decimal  "price",       precision: 10, scale: 2
   end
 
   add_index "auctions", ["user_id"], name: "index_auctions_on_user_id"
