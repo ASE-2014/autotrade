@@ -3,6 +3,7 @@ class CreateAuctions < ActiveRecord::Migration
     create_table :auctions do |t|
       t.string :title
       t.text :description
+      t.references :user, index: true
 
       t.timestamps
     end

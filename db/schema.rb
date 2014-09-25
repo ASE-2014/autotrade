@@ -16,16 +16,24 @@ ActiveRecord::Schema.define(version: 20140924132056) do
   create_table "auctions", force: true do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "start_price", precision: 10, scale: 2
   end
 
+  add_index "auctions", ["user_id"], name: "index_auctions_on_user_id"
+
   create_table "bids", force: true do |t|
     t.integer  "max_bid"
+    t.integer  "auction_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "bids", ["auction_id"], name: "index_bids_on_auction_id"
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

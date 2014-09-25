@@ -13,3 +13,12 @@
     <strong>Start price:</strong>
     <%= @auction.start_price %>
 </p>
+
+
+<h2>Bids</h2>
+<%= render @auction.bids %>
+
+<h2>Place a bid:</h2>
+<%= render "bids/form" %>
+
+<%= link_to 'Back to Auctions', auctions_path %>
