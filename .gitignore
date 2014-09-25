@@ -39,3 +39,4 @@ bower.json
 
 # Because we work on different platforms
 Gemfile.lock
+db/schema.rb
