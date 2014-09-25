@@ -5,6 +5,9 @@ class Auction < ActiveRecord::Base
   validates :description, presence: true
   validates_numericality_of :price
   def update_price
+    # the current top price for an auction is the first possible bid that
+    # overbids that second highest max_bid, unless there is only one bid
+    # in which case the current top price does not change.
     if (bids.count > 1)
       ordered_bids = bids.sort_by{ |b| b.max_bid }.reverse
       ordered_bids.shift # removes current top bid from ordered_bids

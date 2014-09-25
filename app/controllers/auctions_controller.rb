@@ -5,7 +5,6 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
-
     if @auction.save
       redirect_to @auction
     else
@@ -39,7 +38,6 @@ class AuctionsController < ApplicationController
   def destroy
     @auction = Auction.find(params[:id])
     @auction.destroy
-
     redirect_to auctions_path
   end
 
