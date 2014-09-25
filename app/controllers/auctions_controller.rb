@@ -9,7 +9,7 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
-    @auction.owner = current_user.id
+    @auction.user = current_user
 
     if @auction.save
       redirect_to @auction

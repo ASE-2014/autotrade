@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def owns_auction!
     @auction = Auction.find(params[:id])
-    unless @auction.owner == current_user.id
+    unless @auction.user == current_user
       flash[:error] = 'You are not the owner of this auction!'
       redirect_to auctions_path
     end

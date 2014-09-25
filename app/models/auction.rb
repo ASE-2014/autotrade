@@ -1,7 +1,7 @@
 class Auction < ActiveRecord::Base
 
   has_many :bids
-  belongs_to :owner, class_name: 'User'
+  belongs_to :user
 
   validates :title, presence: true, length: {minimum: 3}
   validates :description, presence: true
