@@ -5,6 +5,7 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
+    @auction.user = current_user
     if @auction.save
       redirect_to @auction
     else
@@ -32,10 +33,12 @@ class AuctionsController < ApplicationController
   end
 
   def edit
+    # TODO: auctions shouldn't really be editable. links in view should also be removed
     @auction = Auction.find(params[:id])
   end
 
   def destroy
+    # TODO: auctions shouldn't really be deletable. links in view should also be removed
     @auction = Auction.find(params[:id])
     @auction.destroy
     redirect_to auctions_path
