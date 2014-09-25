@@ -11,15 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923202934) do
+ActiveRecord::Schema.define(version: 201409255092931) do
 
   create_table "auctions", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "price",       precision: 10, scale: 2
     t.decimal  "min_price",   precision: 10, scale: 2
+    t.decimal  "max_bid",     precision: 10, scale: 2
+  end
+
+  create_table "bids", force: true do |t|
+    t.integer  "max_bid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
