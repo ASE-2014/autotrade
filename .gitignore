@@ -36,3 +36,6 @@ bower.json
 /*.iml
 *.ipr
 *.iws
+
+# Because we work on different platforms
+Gemfile.lock
