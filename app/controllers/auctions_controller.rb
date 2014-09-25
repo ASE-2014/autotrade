@@ -5,7 +5,6 @@ class AuctionsController < ApplicationController
 
   def create
     @auction = Auction.new(auction_params)
-
     if @auction.save
       redirect_to @auction
     else
@@ -19,6 +18,7 @@ class AuctionsController < ApplicationController
 
   def show
     @auction = Auction.find(params[:id])
+    @bids = @auction.bids.sort_by{ |b| b.max_bid }.reverse
   end
 
   def update
@@ -38,13 +38,12 @@ class AuctionsController < ApplicationController
   def destroy
     @auction = Auction.find(params[:id])
     @auction.destroy
-
     redirect_to auctions_path
   end
 
   private
   def auction_params
-    params.require(:auction).permit(:title, :description, :start_price)
+    params.require(:auction).permit(:title, :description, :price)
   end
 
 end

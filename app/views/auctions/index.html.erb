@@ -1,4 +1,5 @@
 <h1>All Auctions</h1>
+<%= link_to 'New auction', new_auction_path %>
 <table>
     <tr>
         <th>Title</th>
@@ -11,7 +12,7 @@
         <tr>
             <td><%= auction.title %></td>
             <td><%= auction.description %></td>
-            <td><%= auction.start_price %></td>
+            <td><%= auction.price %></td>
 
             <td><%= link_to 'Show', auction_path(auction) %></td>
             <td><%= link_to 'Edit', edit_auction_path(auction) %></td>
@@ -20,3 +21,4 @@
         </tr>
     <% end %>
 </table>
+<%= link_to 'Back to Home', root_path %>

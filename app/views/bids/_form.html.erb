@@ -1,0 +1,9 @@
+<%= form_for([@auction, @auction.bids.build]) do |f| %>
+    <p>
+        <%= f.label :max_bid %><br>
+        <%= f.text_field :max_bid %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>
