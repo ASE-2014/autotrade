@@ -5,9 +5,12 @@ class BidsController < ApplicationController
   # Also no need for a show method since bids do not need their own view (they're listed per auction).
 
   def create
+    # TODO: only let a bid be created if bid.max_bid > auction.price
     @auction = Auction.find(params[:auction_id])
-    @bidder = User.find(params[:user_id])
-    @bid = @auction.bids.create(bids_params)
+    @bidder = current_user
+    @bid = @auction.bids.create(bid_params)
+    # notify the auction to update its price
+    @auction.update_price
     redirect_to auction_path(@auction)
   end
 

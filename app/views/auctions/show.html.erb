@@ -1,24 +1,25 @@
-
 <p>
     <strong>Title:</strong>
     <%= @auction.title %>
 </p>
-
 <p>
     <strong>Description:</strong>
     <%= @auction.description %>
 </p>
-
 <p>
     <strong>Start price:</strong>
     <%= @auction.start_price %>
 </p>
-
-
 <h2>Bids</h2>
-<%= render @auction.bids %>
-
+<p>
+    <strong>Current top bid:</strong>
+    <%= @auction.start_price %>
+</p>
+<p>
+    <strong>By:</strong>
+    <%= @bids.first.user_id %>
+</p>
+<%= render @bids %>
 <h2>Place a bid:</h2>
 <%= render "bids/form" %>
-
 <%= link_to 'Back to Auctions', auctions_path %>

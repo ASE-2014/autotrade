@@ -19,6 +19,7 @@ class AuctionsController < ApplicationController
 
   def show
     @auction = Auction.find(params[:id])
+    @bids = @auction.bids.sort_by{ |b| b.max_bid }.reverse
   end
 
   def update
