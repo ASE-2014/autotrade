@@ -1,9 +1,12 @@
 class Auction < ActiveRecord::Base
+
   has_many :bids
-  belongs_to :auctioner
+  belongs_to :owner, class_name: 'User'
+
   validates :title, presence: true, length: {minimum: 3}
   validates :description, presence: true
   validates_numericality_of :price
+
   def update_price
     # the current top price for an auction is the first possible bid that
     # overbids that second highest max_bid, unless there is only one bid
@@ -16,4 +19,5 @@ class Auction < ActiveRecord::Base
       self.save
     end
   end
+
 end
