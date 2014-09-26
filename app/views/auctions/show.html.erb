@@ -8,6 +8,11 @@
     <%= @auction.description %>
 </p>
 <p>
+    <% @images.each do |image| %>
+        <%= image_tag image, size: '200x200' %>
+    <% end %>
+</p>
+<p>
     <strong>Time remaining:</strong>
     <%= auction_running? ? (minutes_remaining + " minutes " + seconds_remaining + " seconds") : "Auction finished." %>
 </p>

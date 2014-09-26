@@ -1,5 +1,7 @@
 class AuctionsController < ApplicationController
 
+  require 'google-search'
+
   before_filter :authenticate_user!, :except => [:index, :show]
   before_filter  :owns_auction!, :only => [:update, :edit, :destroy]
 
@@ -27,6 +29,11 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
     @bids = @auction.bids.sort_by{ |b| [-b.max_bid, b.created_at] } #sorts bid by max_bid DESC, created_at ASC
     @bidder = (@bids.first.nil? ? nil : @bids.first.user)
+    # Fetch images from google
+    @images = Array.new
+    Google::Search::Image.new(:query => @auction.title).first(5).each do |image|
+      @images.push image.uri
+    end
   end
 
   def update
