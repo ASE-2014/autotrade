@@ -24,6 +24,9 @@
 </p>
 <%= render @bids %>
 <hr>
+<% unless is_own_auction? %>
 <h2>Place a bid</h2>
 <%= render "bids/form" %>
+<hr>
 <%= link_to 'Back to Auctions', auctions_path %>
+<% end %>

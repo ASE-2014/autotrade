@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # TODO: can we move this completely to application helper? (already copied there because needed in auction#show)
   def is_own_auction?
     @auction = Auction.find(params[:id].nil? ? params[:auction_id] : params[:id])
     @auction.user == current_user
