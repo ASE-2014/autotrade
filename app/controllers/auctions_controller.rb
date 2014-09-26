@@ -25,7 +25,8 @@ class AuctionsController < ApplicationController
 
   def show
     @auction = Auction.find(params[:id])
-    @bids = @auction.bids.sort_by{ |b| b.max_bid }.reverse
+    @bids = @auction.bids.sort_by{ |b| [-b.max_bid, b.created_at] } #sorts bid by max_bid DESC, created_at ASC
+    @bidder = (@bids.first.nil? ? nil : @bids.first.user)
   end
 
   def update
@@ -43,18 +44,18 @@ class AuctionsController < ApplicationController
   end
 
   def destroy
-      @auction = Auction.find(params[:id])
-      unless @auction.bids.empty?
-        flash[:error] = 'Auction already has bids, cannot be deleted!'
-        redirect_to @auction
-      end
-      @auction.destroy
-      redirect_to auctions_path
+    @auction = Auction.find(params[:id])
+    unless @auction.bids.empty?
+      flash[:error] = 'Auction already has bids, cannot be deleted!'
+      redirect_to @auction
     end
+    @auction.destroy
+    redirect_to auctions_path
+  end
 
   private
   def auction_params
-    params.require(:auction).permit(:title, :description, :price)
+    params.require(:auction).permit(:title, :description, :price, :duration)
   end
 
 end
