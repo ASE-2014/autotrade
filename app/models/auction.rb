@@ -21,9 +21,11 @@ class Auction < ActiveRecord::Base
       # only adjust price if two highest bids aren't equal
       if highest_bid.max_bid!=second_highest_bid.max_bid
         self.price = second_highest_bid.max_bid + 1
-        self.save
+      else
+        self.price = highest_bid.max_bid
       end
-
+      
+      self.save
     end
   end
 
