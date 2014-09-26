@@ -44,7 +44,7 @@ class AuctionsController < ApplicationController
 
   def destroy
       @auction = Auction.find(params[:id])
-      unless @auction.bids.first.nil?
+      unless @auction.bids.empty?
         flash[:error] = 'Auction already has bids, cannot be deleted!'
         redirect_to @auction
       end

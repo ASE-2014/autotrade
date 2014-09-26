@@ -11,10 +11,17 @@ class BidsController < ApplicationController
     # TODO: only let a bid be created if bid.max_bid > auction.price and the bidder isn't the creator of the auction!
     @auction = Auction.find(params[:auction_id])
     @bid = @auction.bids.create(bid_params)
-    @bid.user = current_user
-    @bid.save
-    # notify the auction to update its price
-    @auction.update_price
+    p bid_params
+    if @bid.max_bid < @auction.price or ( @bid.max_bid == @auction.price and @auction.bids.size > 1 )
+        # if bid is smaller than current price of auction
+        # or bid is equal to current price of auction and this is not the first bid made
+        flash[:error] = 'Bid is not high enough'
+        @bid.destroy
+    else
+      @bid.user = current_user
+      @bid.save
+      @auction.update_price
+    end
     redirect_to auction_path(@auction)
   end
 
