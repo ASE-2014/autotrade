@@ -7,6 +7,10 @@
     <strong>Description:</strong>
     <%= @auction.description %>
 </p>
+<p>
+    <strong>Time remaining:</strong>
+    <%= time_remaining>0 ? (time_remaining.round.to_s + " seconds") : "Auction finished" %>
+</p>
 <hr>
 <h2>Bids</h2>
 <p>
@@ -24,9 +28,9 @@
 </p>
 <%= render @bids %>
 <hr>
-<% unless is_own_auction? %>
+<% unless is_own_auction? or time_remaining<0 %>
 <h2>Place a bid</h2>
 <%= render "bids/form" %>
 <hr>
-<%= link_to 'Back to Auctions', auctions_path %>
 <% end %>
+<%= link_to 'Back to Auctions', auctions_path %>

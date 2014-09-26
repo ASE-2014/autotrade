@@ -12,7 +12,7 @@ class BidsController < ApplicationController
     # TODO: validate that bid param exists and is numerical
     @auction = Auction.find(params[:auction_id])
     @bid = @auction.bids.create(bid_params)
-    if is_valid? @bid, @auction
+    if bid_is_valid?
       @bid.user = current_user
       @bid.save
       @auction.update_price
@@ -24,17 +24,23 @@ class BidsController < ApplicationController
   end
 
   private
+
   def bid_params
     params.require(:bid).permit(:max_bid)
   end
 
-  def is_valid? bid, auction
-    # 1st cond: bidder isn't owner of auction
-    # 2nd cond: bid is bigger than current price of auction or
-    #           bid is equal to current price of auction and this is the first bid made
-    auction.user != current_user and
-    (bid.max_bid > auction.price or (bid.max_bid == auction.price and auction.bids.size == 1)) and
-    (auction.created_at + (auction.duration)*60 > Time.now)
+  def bid_is_valid?
+    !is_own_auction? and bid_is_high_enough? and bid_is_within_time?
+  end
+
+  def bid_is_high_enough?
+    # bid is bigger than current price of auction or
+    # bid is equal to current price of auction and this is the first bid made
+    @bid.max_bid > @auction.price or (@bid.max_bid == @auction.price and @auction.bids.empty?)
+  end
+
+  def bid_is_within_time?
+    @auction.created_at + (@auction.duration)*60 > Time.now
   end
 
 end
