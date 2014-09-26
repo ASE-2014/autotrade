@@ -1,9 +1,14 @@
 <%= form_for([@auction, @auction.bids.build]) do |f| %>
     <p>
-        <%= f.label :max_bid %><br>
-        <%= f.number_field(:max_bid, :required => true, :min => (@bids.empty? ? @auction.price : (@auction.price+1))) %>
-    </p>
-    <p>
+        <%= f.label 'Overbid current bid' %>
+        <%= f.hidden_field(:max_bid, :value => min_bid) %>
         <%= f.submit %>
+    </p>
+<% end %>
+<%= form_for([@auction, @auction.bids.build]) do |g| %>
+    <p>
+        <%= g.label :max_bid %>
+        <%= g.number_field(:max_bid, :required => true, :min => min_bid) %>
+        <%= g.submit %>
     </p>
 <% end %>
