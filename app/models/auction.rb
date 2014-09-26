@@ -8,7 +8,6 @@ class Auction < ActiveRecord::Base
   validates_numericality_of :price
 
   def update_price
-
     # the current top price for an auction is the first possible bid that
     # overbids that second highest max_bid, unless there is only one bid
     # in which case the current top price does not change and the user to
@@ -23,8 +22,11 @@ class Auction < ActiveRecord::Base
         self.price = second_highest_bid.max_bid + 1
         self.save
       end
-
     end
+  end
+
+  def self.search(query)
+    where("title like ? OR description like ?", "%#{query}%", "%#{query}%")
   end
 
 end

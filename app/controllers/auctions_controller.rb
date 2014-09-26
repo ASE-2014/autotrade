@@ -19,7 +19,11 @@ class AuctionsController < ApplicationController
   end
 
   def index
-    @auctions = Auction.all
+    if params[:search]
+      @auctions = Auction.search(params[:search]).order("created_at DESC")
+    else
+      @auctions = Auction.all.order('created_at DESC')
+    end
     @current_user = current_user
   end
 
