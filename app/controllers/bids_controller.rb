@@ -29,9 +29,10 @@ class BidsController < ApplicationController
   end
 
   def is_valid? bid, auction
-    bid.max_bid > auction.price or ( bid.max_bid == auction.price and auction.bids.size == 1 )
-    # if bid is bigger than current price of auction
-    # or bid is equal to current price of auction and this is the first bid made
+    # 1st cond: bidder isn't owner of auction
+    # 2nd cond: bid is bigger than current price of auction or
+    #           bid is equal to current price of auction and this is the first bid made
+    auction.user != current_user and (bid.max_bid > auction.price or (bid.max_bid == auction.price and auction.bids.size == 1))
   end
 
 end
