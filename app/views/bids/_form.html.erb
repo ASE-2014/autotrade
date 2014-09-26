@@ -1,7 +1,7 @@
 <%= form_for([@auction, @auction.bids.build]) do |f| %>
     <p>
         <%= f.label :max_bid %><br>
-        <%= f.text_field :max_bid %>
+        <%= f.number_field(:max_bid, :required => true, :min => (@auction.bids.empty? ? @auction.price : (@auction.price + 1)) ) %>
     </p>
     <p>
         <%= f.submit %>

@@ -8,10 +8,10 @@ class BidsController < ApplicationController
   before_filter :others_auction!
 
   def create
-    # TODO: only let a bid be created if bid.max_bid > auction.price and the bidder isn't the creator of the auction!
+    # TODO: only let a bid be created if bidder isn't the creator of the auction!
+    # TODO: validate that bid param exists and is numerical
     @auction = Auction.find(params[:auction_id])
     @bid = @auction.bids.create(bid_params)
-    p bid_params
     if @bid.max_bid < @auction.price or ( @bid.max_bid == @auction.price and @auction.bids.size > 1 )
         # if bid is smaller than current price of auction
         # or bid is equal to current price of auction and this is not the first bid made
