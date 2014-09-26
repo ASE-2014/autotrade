@@ -1,3 +1,26 @@
 <h1>Edit auction</h1>
 
-<%= render 'form' %>
+<%= form_for @auction do |f| %>
+    <% if @auction.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@auction.errors.count, "error") %> prohibited
+                this auction from being published:</h2>
+            <ul>
+                <% @auction.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <p>
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+    </p>
+    <p>
+        <%= f.label :description %><br>
+        <%= f.text_area :description %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>
