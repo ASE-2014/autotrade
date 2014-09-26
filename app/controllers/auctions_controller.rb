@@ -1,7 +1,7 @@
 class AuctionsController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:index, :show]
-  before_filter  :owns_auction!, :only => [:update, :edit]
+  before_filter  :owns_auction!, :only => [:update, :edit, :destroy]
 
   def new
     @auction = Auction.new
@@ -39,9 +39,18 @@ class AuctionsController < ApplicationController
   end
 
   def edit
-    # TODO: auctions shouldn't really be editable. links in view should also be removed
     @auction = Auction.find(params[:id])
   end
+
+  def destroy
+      @auction = Auction.find(params[:id])
+      unless @auction.bids.first.nil?
+        flash[:error] = 'Auction already has bids, cannot be deleted!'
+        redirect_to @auction
+      end
+      @auction.destroy
+      redirect_to auctions_path
+    end
 
   private
   def auction_params
