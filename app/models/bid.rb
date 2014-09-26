@@ -3,6 +3,8 @@ class Bid < ActiveRecord::Base
   belongs_to :user
 
   validates :max_bid, presence: true
-  validates :max_bid, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :auction_id, presence: true
+  validates :user_id, presence: true
+  validates :max_bid, :numericality => { :greater_than_or_equal_to => 1 }
 
 end
