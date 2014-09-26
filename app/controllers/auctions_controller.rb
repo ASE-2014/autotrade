@@ -38,10 +38,12 @@ class AuctionsController < ApplicationController
   end
 
   def edit
+    # TODO: auctions shouldn't really be editable. links in view should also be removed
     @auction = Auction.find(params[:id])
   end
 
   def destroy
+    # TODO: auctions shouldn't really be deletable. links in view should also be removed
     @auction = Auction.find(params[:id])
     @auction.destroy
     redirect_to auctions_path

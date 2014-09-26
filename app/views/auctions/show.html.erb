@@ -1,3 +1,4 @@
+<h2>Auction</h2>
 <p>
     <strong>Title:</strong>
     <%= @auction.title %>
@@ -19,10 +20,10 @@
 </p>
 <hr>
 <p>
-    <strong>All bids</strong>
+    <strong>All bids:</strong>
 </p>
 <%= render @bids %>
 <hr>
-<h2>Place a bid:</h2>
+<h2>Place a bid</h2>
 <%= render "bids/form" %>
 <%= link_to 'Back to Auctions', auctions_path %>
