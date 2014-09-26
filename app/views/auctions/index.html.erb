@@ -17,9 +17,7 @@
             <td><%= auction.user.username %></td>
 
             <td><%= link_to 'Show', auction_path(auction) %></td>
-            <!--<td><%= link_to 'Edit', edit_auction_path(auction) %></td>
-            <td><%= link_to 'Destroy', auction_path(auction),
-                            method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+            <td><%= if auction.user == @current_user then link_to 'Edit', edit_auction_path(auction) end %></td>
         </tr>
     <% end %>
 </table>
