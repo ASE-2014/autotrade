@@ -5,7 +5,7 @@ class Auction < ActiveRecord::Base
 
   validates :title, presence: true, length: {minimum: 3}
   validates :description, presence: true
-  validates_numericality_of :price
+  validates :price, :numericality => { :greater_than_or_equal_to => 1 }
 
   def refresh
     # the current top price for an auction is the first possible bid that
