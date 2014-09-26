@@ -9,7 +9,7 @@
 </p>
 <p>
     <strong>Time remaining:</strong>
-    <%= time_remaining>0 ? (time_remaining.round.to_s + " seconds") : "Auction finished" %>
+    <%= time_remaining>0 ? ((time_remaining/60).floor).to_s + " minutes " + ((time_remaining%60).round).to_s + " seconds" : "Auction finished" %>
 </p>
 <hr>
 <h2>Bids</h2>
@@ -19,7 +19,7 @@
 </p>
 <p>
     <strong>Current Bidder:</strong>
-    <%= @bids.first.nil? ? '-' : @bids.first.user.username %>
+    <%= @bidder.nil? ? '-' : @bidder.username %>
 
 </p>
 <hr>
