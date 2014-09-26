@@ -15,7 +15,7 @@ class BidsController < ApplicationController
     if bid_is_valid?
       @bid.user = current_user
       @bid.save
-      @auction.update_price
+      @auction.refresh
     else
       flash[:error] = 'Bid is not high enough'
       @bid.destroy

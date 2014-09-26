@@ -9,16 +9,16 @@
 </p>
 <p>
     <strong>Time remaining:</strong>
-    <%= time_remaining>0 ? ((time_remaining/60).floor).to_s + " minutes " + ((time_remaining%60).round).to_s + " seconds" : "Auction finished" %>
+    <%= auction_running? ? (minutes_remaining + " minutes " + seconds_remaining + " seconds") : "Auction finished." %>
 </p>
 <hr>
 <h2>Bids</h2>
 <p>
-    <strong>Current Price:</strong>
-    <%= @auction.price %>
+    <strong><%= auction_running? ? "Current" : "Winning" %> Price:</strong>
+    <%= @auction.price.round %>
 </p>
 <p>
-    <strong>Current Bidder:</strong>
+    <strong><%= auction_running? ? "Current" : "Winning" %> Bidder:</strong>
     <%= @bidder.nil? ? '-' : @bidder.username %>
 
 </p>
@@ -28,7 +28,7 @@
 </p>
 <%= render @bids %>
 <hr>
-<% unless is_own_auction? or time_remaining<0 %>
+<% unless is_own_auction? or !auction_running? %>
 <h2>Place a bid</h2>
 <%= render "bids/form" %>
 <hr>
