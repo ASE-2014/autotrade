@@ -20,6 +20,7 @@ class AuctionsController < ApplicationController
 
   def index
     @auctions = Auction.all
+    @current_user = current_user
   end
 
   def show
@@ -38,16 +39,18 @@ class AuctionsController < ApplicationController
   end
 
   def edit
-    # TODO: auctions shouldn't really be editable. links in view should also be removed
     @auction = Auction.find(params[:id])
   end
 
   def destroy
-    # TODO: auctions shouldn't really be deletable. links in view should also be removed
-    @auction = Auction.find(params[:id])
-    @auction.destroy
-    redirect_to auctions_path
-  end
+      @auction = Auction.find(params[:id])
+      unless @auction.bids.empty?
+        flash[:error] = 'Auction already has bids, cannot be deleted!'
+        redirect_to @auction
+      end
+      @auction.destroy
+      redirect_to auctions_path
+    end
 
   private
   def auction_params

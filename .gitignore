@@ -42,3 +42,5 @@ Gemfile.lock
 
 # Seems to cause problems when db model changes. Gets generated automatically anyways.
 db/schema.rb
+
+db/schema.rb
