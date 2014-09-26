@@ -5,6 +5,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Owner</th>
         <th colspan="3"></th>
     </tr>
 
@@ -13,6 +14,7 @@
             <td><%= auction.title %></td>
             <td><%= auction.description %></td>
             <td><%= auction.price %></td>
+            <td><%= auction.user.username %></td>
 
             <td><%= link_to 'Show', auction_path(auction) %></td>
             <!--<td><%= link_to 'Edit', edit_auction_path(auction) %></td>

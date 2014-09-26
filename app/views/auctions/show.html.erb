@@ -7,15 +7,23 @@
     <strong>Description:</strong>
     <%= @auction.description %>
 </p>
+<hr>
 <h2>Bids</h2>
 <p>
     <strong>Current Price:</strong>
     <%= @auction.price %>
 </p>
 <p>
+    <strong>Current Bidder:</strong>
+    <%= @bids.first.nil? ? '-' : @bids.first.user.username %>
+
+</p>
+<hr>
+<p>
     <strong>All bids:</strong>
 </p>
 <%= render @bids %>
+<hr>
 <h2>Place a bid</h2>
 <%= render "bids/form" %>
 <%= link_to 'Back to Auctions', auctions_path %>
