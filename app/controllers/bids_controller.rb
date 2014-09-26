@@ -32,7 +32,9 @@ class BidsController < ApplicationController
     # 1st cond: bidder isn't owner of auction
     # 2nd cond: bid is bigger than current price of auction or
     #           bid is equal to current price of auction and this is the first bid made
-    auction.user != current_user and (bid.max_bid > auction.price or (bid.max_bid == auction.price and auction.bids.size == 1))
+    auction.user != current_user and
+    (bid.max_bid > auction.price or (bid.max_bid == auction.price and auction.bids.size == 1)) and
+    (auction.created_at + (auction.duration)*60 > Time.now)
   end
 
 end
