@@ -43,14 +43,14 @@ class AuctionsController < ApplicationController
   end
 
   def destroy
-      @auction = Auction.find(params[:id])
-      unless @auction.bids.empty?
-        flash[:error] = 'Auction already has bids, cannot be deleted!'
-        redirect_to @auction
-      end
-      @auction.destroy
-      redirect_to auctions_path
+    @auction = Auction.find(params[:id])
+    unless @auction.bids.empty?
+      flash[:error] = 'Auction already has bids, cannot be deleted!'
+      redirect_to @auction
     end
+    @auction.destroy
+    redirect_to auctions_path
+  end
 
   private
   def auction_params

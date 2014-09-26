@@ -12,15 +12,13 @@ class BidsController < ApplicationController
     # TODO: validate that bid param exists and is numerical
     @auction = Auction.find(params[:auction_id])
     @bid = @auction.bids.create(bid_params)
-    if @bid.max_bid < @auction.price or ( @bid.max_bid == @auction.price and @auction.bids.size > 1 )
-        # if bid is smaller than current price of auction
-        # or bid is equal to current price of auction and this is not the first bid made
-        flash[:error] = 'Bid is not high enough'
-        @bid.destroy
-    else
+    if is_valid? @bid, @auction
       @bid.user = current_user
       @bid.save
       @auction.update_price
+    else
+      flash[:error] = 'Bid is not high enough'
+      @bid.destroy
     end
     redirect_to auction_path(@auction)
   end
@@ -29,4 +27,11 @@ class BidsController < ApplicationController
   def bid_params
     params.require(:bid).permit(:max_bid)
   end
+
+  def is_valid? bid, auction
+    bid.max_bid > auction.price or ( bid.max_bid == auction.price and auction.bids.size == 1 )
+    # if bid is bigger than current price of auction
+    # or bid is equal to current price of auction and this is the first bid made
+  end
+
 end
