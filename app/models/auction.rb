@@ -57,7 +57,7 @@ class Auction < ActiveRecord::Base
   end
 
   def tweets
-    options = {:count => 6, :include_rts => true}
-    $twitter.search(self.title, options)
+    options = {count: 6, result_type: 'recent'}
+    $twitter.search(self.title, options).take(6) #somehow the count argument doesn't work...
   end
 end

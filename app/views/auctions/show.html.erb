@@ -35,7 +35,6 @@
 <% end %>
 
 <h2>Related tweets:</h2>
-<% @tweets.each do |tweet| %>
-    <%= tweet.text %>
-<% end %>
+<%= render partial: 'tweet', collection: @tweets %>
+
 <%= link_to 'Back to Auctions', auctions_path %>
