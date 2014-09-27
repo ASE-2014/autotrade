@@ -1,5 +1,4 @@
 <h1>All Auctions</h1>
-
 <%= form_tag(auctions_path, :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search Auctions" %>
     <%= submit_tag "Search", :name => nil %>
@@ -28,4 +27,3 @@
         </tr>
     <% end %>
 </table>
-<%= link_to 'Back to Home', root_path %>
