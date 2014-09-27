@@ -33,4 +33,9 @@
 <%= render "bids/form" %>
 <hr>
 <% end %>
+
+<h2>Related tweets:</h2>
+<% @tweets.each do |tweet| %>
+    <%= tweet.text %>
+<% end %>
 <%= link_to 'Back to Auctions', auctions_path %>

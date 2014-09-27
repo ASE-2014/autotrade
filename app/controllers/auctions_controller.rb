@@ -31,6 +31,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.find(params[:id])
     @bids = @auction.bids.sort_by{ |b| [-b.max_bid, b.created_at] } #sorts bid by max_bid DESC, created_at ASC
     @bidder = (@bids.first.nil? ? nil : @bids.first.user)
+    @tweets = @auction.tweets
   end
 
   def update
