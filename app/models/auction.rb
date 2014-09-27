@@ -57,9 +57,7 @@ class Auction < ActiveRecord::Base
   end
 
   def tweets
-
     options = {:count => 6, :include_rts => true}
-    $twitter.user_timeline("thebigbenclock", options)
-
+    $twitter.search(self.title, options)
   end
 end
