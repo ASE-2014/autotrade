@@ -1,4 +1,4 @@
-<div class="col-lg-8 col-md-12">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
     <h1><%= @auction.title %></h1>
     <hr>
     <h2><strong><%= @auction.time_remaining_string %></strong></h2>
@@ -24,7 +24,7 @@
     <hr>
     <%= link_to 'Back to Auctions', auctions_path %>
 </div>
-<div class="col-lg-4 col-md-12 text-right">
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
     <h1>Bids</h1>
     <hr>
     <h2>
@@ -38,9 +38,20 @@
     <% unless is_own_auction? or !@auction.running? %>
         <%= render "bids/form" %>
     <% end %>
+    <% if is_own_auction? and @auction.running? %>
+        <div style="float: right; width: auto;">
+            <%= if (is_own_auction? and @auction.bids.first.nil?) then button_to 'Destroy', auction_path(@auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" end %>
+        </div>
+        <div style="float: right; width: auto;">
+            <p>&nbsp;</p>
+        </div>
+        <div style="float: right; width: auto;">
+            <%= if is_own_auction? then button_to 'Edit', edit_auction_path(@auction), :method => "get", class: "btn btn-warning" end %>
+        </div>
+    <% end %>
 </div>
-<% unless is_own_auction? or !@auction.running? %>
-<div class="col-lg-4 col-md-12 text-right">
+<% unless !@auction.running? %>
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
     <hr>
 </div>
 <% end %>
