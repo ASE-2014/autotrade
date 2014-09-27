@@ -9,7 +9,7 @@
 </p>
 <p>
     <% @images.each do |image| %>
-        <%= image_tag image, size: '200x200' %>
+        <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
     <% end %>
 </p>
 <p>
