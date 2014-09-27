@@ -1,19 +1,37 @@
-<h1>AutoTrade</h1>
-<h2>Welcome to the great car sharing platform</h2>
+<h1 class="text-center">Welcome to the great car sharing platform!</h1>
+<div class="col-md-12">
+    <div class="modal-dialog" style="margin-bottom:0">
+        <div class="modal-content">
+            <div class="panel-heading">
+                <h3>Sign In</h3>
+            </div>
+            <div class="panel-body">
+                <%= form_for(:user, :url => session_path(:user)) do |f| %>
+                    <fieldset>
+                        <div class="form-group">
+                            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                        </div>
+                        <div class="form-group">
+                            <%= f.password_field :password, class: "form-control" %>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <%= f.check_box :remember_me %> Remember me
+                            </label>
+                        </div>
+                        <div style="float: left; width: auto;">
+                            <%= f.submit 'Sign in', class: "btn btn-success" %>
+                        </div>
+                        <div style="float: left; width: 10px;"><p>&nbsp;</p>
+                        </div>
+                    <% end %>
 
-<%= form_for(:user, :url => session_path(:user)) do |f| %>
-
-    <div>Email<br />
-        <%= f.email_field :email, autofocus: true %></div>
-
-    <div>Password<br />
-        <%= f.password_field :password %></div>
-
-    <%= f.check_box :remember_me %> Remember me</div>
-
-    <div><%= f.submit 'Sign in' %></div>
-
-<%= link_to "Forgot your password?", new_password_path(:user) %>
-<% end %>
-
-<%= link_to 'Sign up', new_user_registration_path %>
+                    <div style="float: left; width: auto;">
+                            <%= button_to 'Sign up', new_user_registration_path, method: :get, class: "btn btn-primary" %>
+                        </div>
+                    </fieldset>
+                    <p><%= link_to "Forgot your password?", new_password_path(:user) %></p>
+            </div>
+        </div>
+    </div>
+</div>
