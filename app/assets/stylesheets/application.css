@@ -24,3 +24,9 @@
     margin-bottom: 0px;
 }
 
+.bid-control{
+    width: 200px;
+    float: right;
+    display: block;
+}
+

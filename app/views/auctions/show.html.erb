@@ -1,36 +1,46 @@
-<h2>Auction</h2>
-<p>
-    <strong>Title:</strong>
-    <%= @auction.title %>
-</p>
-<p>
-    <strong>Description:</strong>
-    <%= @auction.description %>
-</p>
-<p>
-    <strong>Time remaining:</strong>
-    <%= auction_running? ? (minutes_remaining + " minutes " + seconds_remaining + " seconds") : "Auction finished." %>
-</p>
-<hr>
-<h2>Bids</h2>
-<p>
-    <strong><%= auction_running? ? "Current" : "Winning" %> Price:</strong>
-    <%= @auction.price.round %>
-</p>
-<p>
-    <strong><%= auction_running? ? "Current" : "Winning" %> Bidder:</strong>
-    <%= @bidder.nil? ? '-' : @bidder.username %>
-
-</p>
-<hr>
-<p>
-    <strong>All bids:</strong>
-</p>
-<%= render @bids %>
-<hr>
-<% unless is_own_auction? or !auction_running? %>
-<h2>Place a bid</h2>
-<%= render "bids/form" %>
-<hr>
+<div class="col-lg-8 col-md-12">
+    <h1><%= @auction.title %></h1>
+    <hr>
+    <h2><strong><%= @auction.time_remaining_string %></strong></h2>
+    <p>
+        Time remaining
+    </p>
+    <hr>
+    <p>
+        <strong>Seller:</strong>
+        <%= @auction.user.username %>
+    </p>
+    <p>
+        <strong>Description:</strong>
+        <%= @auction.description %>
+    </p>
+    <p>
+    </p>
+    <hr>
+    <p>
+        <strong>All bids (for debugging):</strong>
+    </p>
+    <%= render @bids %>
+    <hr>
+    <%= link_to 'Back to Auctions', auctions_path %>
+</div>
+<div class="col-lg-4 col-md-12 text-right">
+    <h1>Bids</h1>
+    <hr>
+    <h2>
+        <strong><%= @auction.price.round %> CHF</strong>
+    </h2>
+    <p>
+        <%= @auction.running? ? "Current" : "Winning" %> bid
+        <%= @bidder.nil? ? '' : 'by '+@bidder.username %>
+    </p>
+    <hr>
+    <% unless is_own_auction? or !@auction.running? %>
+        <%= render "bids/form" %>
+    <% end %>
+</div>
+<% unless is_own_auction? or !@auction.running? %>
+<div class="col-lg-4 col-md-12 text-right">
+    <hr>
+</div>
 <% end %>
-<%= link_to 'Back to Auctions', auctions_path %>

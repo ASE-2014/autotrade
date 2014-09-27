@@ -1,13 +1,9 @@
-<div class="container">
-    <div class="pull-left">
-        <p>
 <%= form_for([@auction, @auction.bids.build]) do |f| %>
         <%= f.hidden_field(:max_bid, :value => min_bid) %>
-        <%= f.submit "Overbid current bid", class: "btn btn-success" %>
-<% end %> </p></div>
-<div class="pull-right"><p>
-<%= form_for([@auction, @auction.bids.build]) do |g| %>
-        <%= g.number_field(:max_bid, :required => true, :min => min_bid) %>
-        <%= g.submit "Submit maximum bid", class: "btn btn-success" %>
-<% end %></p>
-</div></div>
+        <%= f.submit "Overbid current bid", class: "btn btn-success bid-control" %>
+<% end %>
+<p class="bid-control">or</p>
+<%= form_for([@auction, @auction.bids.build], :class => "form-inline") do |g| %>
+        <%= g.number_field(:max_bid, :required => true, :min => min_bid, :placeholder => min_bid.round, class: "form-control bid-control") %>
+        <%= g.submit "Submit maximum bid", class: "btn btn-success bid-control" %>
+<% end %>
