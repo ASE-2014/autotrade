@@ -7,6 +7,7 @@ class Auction < ActiveRecord::Base
   validates :description, presence: true
   validates :price, :numericality => { :greater_than_or_equal_to => 1 }
 
+
   def refresh
     # the current top price for an auction is the first possible bid that
     # overbids that second highest max_bid, unless there is only one bid
@@ -24,15 +25,19 @@ class Auction < ActiveRecord::Base
   end
 
   def update_price
-      ordered_bids = bids.sort_by{ |b| b.max_bid }.reverse
-      highest_bid = ordered_bids.shift # also removes highest_bid from ordered_bids
-      second_highest_bid = ordered_bids.first
-      # adjust second highest max_bid by 1 if two highest bids aren't equal
-      if highest_bid.max_bid!=second_highest_bid.max_bid
-        self.price = second_highest_bid.max_bid + 1
-      else #
-        self.price = second_highest_bid.max_bid
-      end
+    ordered_bids = bids.sort_by{ |b| b.max_bid }.reverse
+    highest_bid = ordered_bids.shift # also removes highest_bid from ordered_bids
+    second_highest_bid = ordered_bids.first
+    # increment second highest max_bid by 1 if two highest bids aren't equal
+    if highest_bid.max_bid!=second_highest_bid.max_bid
+      self.price = second_highest_bid.max_bid + 1
+    else #
+      self.price = second_highest_bid.max_bid
+    end
+  end
+
+  def self.search(query)
+    where("title like ? OR description like ?", "%#{query}%", "%#{query}%")
   end
 
   def extend_duration_by_mins mins
