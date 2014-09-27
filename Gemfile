@@ -51,3 +51,5 @@ gem 'rails_12factor'
 # For user authentication and rights management
 gem 'devise'
 
+# For fetching images from google
+gem 'google-search'
