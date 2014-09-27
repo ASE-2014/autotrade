@@ -27,7 +27,10 @@
 .bid-control{
     width: 200px;
     float: right;
-    display: block;
+}
+
+.bid-control-semi{
+    width: 100px;
 }
 
 .auction-search{

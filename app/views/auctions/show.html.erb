@@ -1,7 +1,7 @@
-<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <h1><%= @auction.title %></h1>
+<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+    <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= @auction.time_remaining_string %></strong></h2>
+    <h2><strong><%= fa_icon "clock-o" %> <%= @auction.time_remaining_string %></strong></h2>
     <p>
         Time remaining
     </p>
@@ -22,10 +22,9 @@
     </p>
     <%= render @bids %>
     <hr>
-    <%= link_to 'Back to Auctions', auctions_path %>
 </div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
-    <h1>Bids</h1>
+<div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
+    <h1>Bids <%= fa_icon "dollar" %></h1>
     <hr>
     <h2>
         <strong><%= @auction.price.round %> CHF</strong>
@@ -51,7 +50,7 @@
     <% end %>
 </div>
 <% unless !@auction.running? %>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
+<div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
     <hr>
 </div>
 <% end %>
