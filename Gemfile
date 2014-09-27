@@ -51,3 +51,5 @@ gem 'rails_12factor'
 # For user authentication and rights management
 gem 'devise'
 
+gem 'twitter'
+
