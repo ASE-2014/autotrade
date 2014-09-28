@@ -56,4 +56,8 @@ class Auction < ActiveRecord::Base
     (((self.created_at + self.duration*60) - Time.now) - (n*60)) < 0
   end
 
+  def tweets
+    options = {count: 6, result_type: 'recent'}
+    $twitter.search(self.title, options).take(6) #somehow the count argument doesn't work...
+  end
 end

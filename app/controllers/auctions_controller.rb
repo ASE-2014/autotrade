@@ -35,6 +35,7 @@ class AuctionsController < ApplicationController
     @bidder = (@bids.first.nil? ? nil : @bids.first.user)
     # Fetch images from google
     @images = find_images(@auction.title)
+    @tweets = @auction.tweets
   end
 
   def update

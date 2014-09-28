@@ -38,4 +38,8 @@
 <%= render "bids/form" %>
 <hr>
 <% end %>
+
+<h2>Related tweets:</h2>
+<%= render partial: 'tweet', collection: @tweets %>
+
 <%= link_to 'Back to Auctions', auctions_path %>

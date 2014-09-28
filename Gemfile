@@ -51,5 +51,8 @@ gem 'rails_12factor'
 # For user authentication and rights management
 gem 'devise'
 
+# To access the Twitter API. Don't forget to load the Twitter secrets into secrets.yml
+gem 'twitter'
+
 # For fetching images from google
 gem 'google-search'
