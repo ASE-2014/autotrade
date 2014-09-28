@@ -51,18 +51,8 @@ gem 'rails_12factor'
 # For user authentication and rights management
 gem 'devise'
 
-<<<<<<< HEAD
-=======
-# Fancy icon to use in views
-gem 'font-awesome-rails', '~> 4.2.0.0'
-
->>>>>>> feature/bootstrap
 # To access the Twitter API. Don't forget to load the Twitter secrets into secrets.yml
 gem 'twitter'
 
 # For fetching images from google
-<<<<<<< HEAD
 gem 'google-search'
-=======
-gem 'google-search'
->>>>>>> feature/bootstrap

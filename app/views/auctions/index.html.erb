@@ -1,48 +1,31 @@
-<div class="pull-left">
-    <h1><%= fa_icon "list-ul" %> Auctions</h1>
-</div>
+<h1>All Auctions</h1>
 
+<%= form_tag(auctions_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Auctions" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
 
-<div class="pull-right auction-search">
-    <p>
-        <%= form_tag auctions_path, method: :get, :class => "navbar-form navbar-left" do %>
-            <div class="form-group">
-                <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
-            </div>
-            <%= submit_tag "Search", :name => nil, class: "btn btn-info pull-right" %>
-        <% end %>
-    </p>
-</div>
-
-<table class="table table-bordered table-striped table-responsive">
-    <thead>
+<%= link_to 'New auction', new_auction_path %>
+<table>
     <tr>
-        <th><%= fa_icon "car" %> Car type</th>
-        <th><%= fa_icon "user" %> Seller</th>
-        <th><%= fa_icon "clock-o" %> Time Remaining</th>
-        <th><%= fa_icon "gavel" %> Highest bid</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Owner</th>
+        <th colspan="3"></th>
     </tr>
-    </thead>
-    <tbody>
+
     <% @auctions.each do |auction| %>
         <tr>
-            <td>
-                <div style="float: left; width: auto;">
-                    <strong><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
-                </div>
-                <div style="float: left; width: auto;">
-                    <%= if auction.user == current_user then button_to 'Edit', edit_auction_path(auction), :method => "get", class: "btn btn-warning btn-xs" end %>
-                </div><div style="float: left; width: 2px;"><p>&nbsp;</p>
-            </div>
-                <div style="float: left; width: auto;">
-                <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
-                </div>
-            </td>
-            <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
-            <td class="text-right"><%= auction.time_remaining_string %></td>
-            <td class="text-right"><%= number_with_delimiter(auction.price.round, delimiter: "'") %> CHF</td>
+            <td><%= auction.title %></td>
+            <td><%= auction.description %></td>
+            <td><%= auction.price %></td>
+            <td><%= auction.user.username %></td>
+
+            <td><%= link_to 'Show', auction_path(auction) %></td>
+            <td><%= if auction.user == @current_user then link_to 'Edit', edit_auction_path(auction) end %></td>
+            <td><%= if (auction.user == @current_user and auction.bids.first.nil?) then link_to 'Destroy', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' } end %></td>
         </tr>
     <% end %>
-    </tbody>
 </table>
-<%= button_to "New auction", new_auction_path, :method => "get", class: "btn btn-success" %>
+<%= link_to 'Back to Home', root_path %>
