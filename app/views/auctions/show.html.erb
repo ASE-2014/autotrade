@@ -1,7 +1,7 @@
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <%= format_duration(@auction.time_remaining) %></strong></h2>
+    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <%= format_duration_if_pos(@auction.time_remaining) %></strong></h2>
     <p>
         <%= @auction.running? ? "Time remaining" : "" %>&nbsp;
     </p>

@@ -39,7 +39,7 @@
                 </div>
             </td>
             <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
-            <td class="text-right"><%= format_duration(auction.time_remaining) %></td>
+            <td class="text-right"><%= format_duration_if_pos(auction.time_remaining) %></td>
             <td class="text-right"><%= number_with_delimiter(auction.price.round, delimiter: "'") %> CHF</td>
         </tr>
     <% end %>
