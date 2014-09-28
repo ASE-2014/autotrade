@@ -27,7 +27,8 @@
     <h1>Price <%= fa_icon "usd" %></h1>
     <hr>
     <h2>
-        <strong><%= @auction.price.round %> CHF</strong>
+
+        <strong><%= number_with_delimiter(@auction.price.round, delimiter: "'") %> CHF</strong>
     </h2>
     <p>
         <%= @auction.running? ? "Current" : "Winning" %> bid

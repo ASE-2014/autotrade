@@ -20,11 +20,11 @@
     </p>
     <p>
         <%= f.label :price %><br>
-        <%= f.number_field :price, min: 1, class: "form-control" %>
+        <%= f.number_field :price, :placeholder => "CHF", min: 1, class: "form-control" %>
     </p>
     <p>
         <%= f.label :duration %><br>
-        <%= f.number_field(:duration, :required => true, :min => 5, class: "form-control") %>
+        <%= f.number_field(:duration, :placeholder => "Minutes", :required => true, :min => 5, class: "form-control") %>
     </p>
     <div style="float: left; width: auto;">
         <%= f.submit class: "btn btn-success" %>
