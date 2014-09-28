@@ -24,7 +24,7 @@
     <hr>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
-    <h1>Price <%= fa_icon "usd" %></h1>
+    <h1><%= fa_icon "gavel" %></h1>
     <hr>
     <h2>
 
@@ -38,9 +38,9 @@
     <% unless is_own_auction? or !@auction.running? %>
         <%= render "bids/form" %>
     <% end %>
-    <% if is_own_auction? and @auction.running? %>
+    <% if is_own_auction? %>
         <div style="float: right; width: auto;">
-            <%= if (is_own_auction? and @auction.bids.first.nil?) then button_to 'Destroy', auction_path(@auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" end %>
+            <%= if (is_own_auction? and @auction.bids.first.nil?) then button_to 'Delete', auction_path(@auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" end %>
         </div>
         <div style="float: right; width: auto;">
             <p>&nbsp;</p>
