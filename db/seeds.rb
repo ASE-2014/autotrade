@@ -36,5 +36,5 @@ veyron_supersport = Auction.create(title: 'Bugatti Veyron Supersport',
 venom_gt = Auction.create(title: 'Hennessey Venom GT',
                           description: 'Great car, only used once!',
                           price: 99999,
-                          duration: 5,
+                          duration: 1.1,
                           user: oliver)

@@ -1,188 +1,206 @@
-/**
- * jQuery Countdown Timer plugin v1.0
- *
- * https://github.com/unthunk/jquery-countdown-timer
- *
- * Copyright 2013 Lucas Myers
- * Released under the MIT license:
- *   http://www.opensource.org/licenses/mit-license.php
+/*!
+ * The Final Countdown for jQuery v2.0.4 (http://hilios.github.io/jQuery.countdown/)
+ * Copyright (c) 2014 Edson Hilios
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-(function($){
-
-    var labels = [],
-
-        start = function(el,options) {
-            if($(el).data('countdown-label') >= 0){
-                // there's already a timer on this
-                methods.stop(el);
-            }
-            // handle the label
-            var label = $(el).data('countdown-label') >= 0 ? $(el).data('countdown-label') : labels.length,
-                opts = $(el).data('countdown-opts') ? $(el).data('countdown-opts') : options;
-            $(el).data('countdown-label',label);
-            $(el).data('countdown-opts',opts);
-
-            update(el,opts);
-
-            labels[label] = setInterval(function(){
-                tick(el);
-            },1000);
-        },
-
-        tick = function(el) {
-            var opts = ($(el).data('countdown-opts')),
-                done = false;
-
-            // countdown 1 second
-            opts.s--;
-            // detect if countdown is done (all 0's)
-            if(opts.y === 0 && opts.m === 0 && opts.d === 0 && opts.h === 0 && opts.m === 0 && opts.s === 0){
-                done = true;
-            }
-
-            // if seconds is less than 0, reset to 59, then decrement up the counter
-            if(opts.s < 0) {
-                opts.s = 59;
-
-                // minutes
-                if(opts.m === 0){
-                    opts.m = 59;
-
-                    // hours
-                    if(opts.h === 0){
-                        opts.h = 23;
-
-                        // days
-                        if(opts.d === 0) {
-                            opts.d = 364;
-                            // years
-                            opts.y--;
-                        }
-                        else {
-                            opts.d--;
-                        }
-                    }
-                    else {
-                        opts.h--;
-                    }
-                }
-                else{
-                    opts.m--;
-                }
-            }
-
-            // update display
-            update(el,opts);
-
-            // end of countdown, end timer and run callback
-            if(done) {
-                methods.stop(el);
-                $(el).removeData('countdown-label countdown-opts');
-                if(opts.done && typeof opts.done === 'function') {
-                    opts.done();
-                }
-            }
-            else {
-
-                // save countdown
-                $(el).data('countdown-opts',opts);
-            }
-        },
-
-        update = function(el,opts) {
-            // run opts.tpl if it is passed in
-            if(opts.tpl && typeof opts.tpl === "function"){
-                opts.tpl(el,opts);
-            }
-            else {
-                // display the countdown
-                var template = _.template(
-                    $("#countdown-tpl").html()
-                );
-
-                $(el).html(template(opts));
-            }
-
-
-            function format(val) {
-                var formatted = '' + val;
-                if(formatted.length === 1) {
-                    formatted = ''+'0' + val;
-                }
-                return formatted;
-            }
-        },
-
-        methods = {
-            init: function(options) {
-                var that = this;
-                return this.each(function(){
-                    var $this = $(this);
-                    var opts = $.extend({}, $.fn.countdown.defaults, options);
-                    $($this).data('countdown-opts',opts);
-                    if(opts.autostart) {
-                        start($this,opts);
-                    }
-                });
-            },
-
-            pause: function() {
-                return this.each(function(){
-                    var $this = $(this);
-                    methods.stop($this);
-                });
-            },
-
-            resume: function() {
-                return this.each(function(){
-                    var $this = $(this);
-                    var opts = $.extend({}, $.fn.countdown.defaults, $($this).data('countdown-opts'));
-                    start($this,opts);
-                });
-            },
-
-            start: function() {
-                return this.each(function(){
-                    var $this = $(this);
-                    var opts = $.extend({}, $.fn.countdown.defaults, $($this).data('countdown-opts'));
-                    start($this,opts);
-                });
-            },
-
-            stop: function(el) {
-                if(el){
-                    clearInterval(labels[$(el).data('countdown-label')]);
-                }
-                else {
-                    return this.each(function(){
-                        var $this = $(this);
-                        clearInterval(labels[$($this).data('countdown-label')]);
-                    });
-                }
-            }
-
-        };
-
-    $.fn.countdown = function(options){
-
-        if ( methods[options] ) {
-            return methods[ options ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof options === 'object' || ! options ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+(function(factory) {
+    "use strict";
+    if (typeof define === "function" && define.amd) {
+        define([ "jquery" ], factory);
+    } else {
+        factory(jQuery);
+    }
+})(function($) {
+    "use strict";
+    var PRECISION = 100;
+    var instances = [], matchers = [];
+    matchers.push(/^[0-9]*$/.source);
+    matchers.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source);
+    matchers.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source);
+    matchers = new RegExp(matchers.join("|"));
+    function parseDateString(dateString) {
+        if (dateString instanceof Date) {
+            return dateString;
         }
-
+        if (String(dateString).match(matchers)) {
+            if (String(dateString).match(/^[0-9]*$/)) {
+                dateString = Number(dateString);
+            }
+            if (String(dateString).match(/\-/)) {
+                dateString = String(dateString).replace(/\-/g, "/");
+            }
+            return new Date(dateString);
+        } else {
+            throw new Error("Couldn't cast `" + dateString + "` to a date object.");
+        }
+    }
+    var DIRECTIVE_KEY_MAP = {
+        Y: "years",
+        m: "months",
+        w: "weeks",
+        d: "days",
+        D: "totalDays",
+        H: "hours",
+        M: "minutes",
+        S: "seconds"
     };
-
-    $.fn.countdown.defaults = {
-        autostart: false,
-        y: 0,
-        d: 0,
-        h: 0,
-        m: 0,
-        s: 0
+    function strftime(offsetObject) {
+        return function(format) {
+            var directives = format.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
+            if (directives) {
+                for (var i = 0, len = directives.length; i < len; ++i) {
+                    var directive = directives[i].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), regexp = new RegExp(directive[0]), modifier = directive[1] || "", plural = directive[3] || "", value = null;
+                    directive = directive[2];
+                    if (DIRECTIVE_KEY_MAP.hasOwnProperty(directive)) {
+                        value = DIRECTIVE_KEY_MAP[directive];
+                        value = Number(offsetObject[value]);
+                    }
+                    if (value !== null) {
+                        if (modifier === "!") {
+                            value = pluralize(plural, value);
+                        }
+                        if (modifier === "") {
+                            if (value < 10) {
+                                value = "0" + value.toString();
+                            }
+                        }
+                        format = format.replace(regexp, value.toString());
+                    }
+                }
+            }
+            format = format.replace(/%%/, "%");
+            return format;
+        };
+    }
+    function pluralize(format, count) {
+        var plural = "s", singular = "";
+        if (format) {
+            format = format.replace(/(:|;|\s)/gi, "").split(/\,/);
+            if (format.length === 1) {
+                plural = format[0];
+            } else {
+                singular = format[0];
+                plural = format[1];
+            }
+        }
+        if (Math.abs(count) === 1) {
+            return singular;
+        } else {
+            return plural;
+        }
+    }
+    var Countdown = function(el, finalDate, callback) {
+        this.el = el;
+        this.$el = $(el);
+        this.interval = null;
+        this.offset = {};
+        this.instanceNumber = instances.length;
+        instances.push(this);
+        this.$el.data("countdown-instance", this.instanceNumber);
+        if (callback) {
+            this.$el.on("update.countdown", callback);
+            this.$el.on("stoped.countdown", callback);
+            this.$el.on("finish.countdown", callback);
+        }
+        this.setFinalDate(finalDate);
+        this.start();
     };
-
-})(jQuery);
+    $.extend(Countdown.prototype, {
+        start: function() {
+            if (this.interval !== null) {
+                clearInterval(this.interval);
+            }
+            var self = this;
+            this.update();
+            this.interval = setInterval(function() {
+                self.update.call(self);
+            }, PRECISION);
+        },
+        stop: function() {
+            clearInterval(this.interval);
+            this.interval = null;
+            this.dispatchEvent("stoped");
+        },
+        pause: function() {
+            this.stop.call(this);
+        },
+        resume: function() {
+            this.start.call(this);
+        },
+        remove: function() {
+            this.stop();
+            instances[this.instanceNumber] = null;
+            delete this.$el.data().countdownInstance;
+        },
+        setFinalDate: function(value) {
+            this.finalDate = parseDateString(value);
+        },
+        update: function() {
+            if (this.$el.closest("html").length === 0) {
+                this.remove();
+                return;
+            }
+            this.totalSecsLeft = this.finalDate.getTime() - new Date().getTime();
+            this.totalSecsLeft = Math.ceil(this.totalSecsLeft / 1e3);
+            this.totalSecsLeft = this.totalSecsLeft < 0 ? 0 : this.totalSecsLeft;
+            this.offset = {
+                seconds: this.totalSecsLeft % 60,
+                minutes: Math.floor(this.totalSecsLeft / 60) % 60,
+                hours: Math.floor(this.totalSecsLeft / 60 / 60) % 24,
+                days: Math.floor(this.totalSecsLeft / 60 / 60 / 24) % 7,
+                totalDays: Math.floor(this.totalSecsLeft / 60 / 60 / 24),
+                weeks: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 7),
+                months: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 30),
+                years: Math.floor(this.totalSecsLeft / 60 / 60 / 24 / 365)
+            };
+            if (this.totalSecsLeft === 0) {
+                this.stop();
+                this.dispatchEvent("finish");
+            } else {
+                this.dispatchEvent("update");
+            }
+        },
+        dispatchEvent: function(eventName) {
+            var event = $.Event(eventName + ".countdown");
+            event.finalDate = this.finalDate;
+            event.offset = $.extend({}, this.offset);
+            event.strftime = strftime(this.offset);
+            this.$el.trigger(event);
+        }
+    });
+    $.fn.countdown = function() {
+        var argumentsArray = Array.prototype.slice.call(arguments, 0);
+        return this.each(function() {
+            var instanceNumber = $(this).data("countdown-instance");
+            if (instanceNumber !== undefined) {
+                var instance = instances[instanceNumber], method = argumentsArray[0];
+                if (Countdown.prototype.hasOwnProperty(method)) {
+                    instance[method].apply(instance, argumentsArray.slice(1));
+                } else if (String(method).match(/^[$A-Z_][0-9A-Z_$]*$/i) === null) {
+                    instance.setFinalDate.call(instance, method);
+                    instance.start();
+                } else {
+                    $.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, method));
+                }
+            } else {
+                new Countdown(this, argumentsArray[0], argumentsArray[1]);
+            }
+        });
+    };
+});
