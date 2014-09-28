@@ -2,8 +2,7 @@
     <h1><%= fa_icon "list-ul" %> Auctions</h1>
 </div>
 
-
-<div class="pull-right auction-search">
+<div class="pull-right auction-search hidden-xs">
     <p>
         <%= form_tag auctions_path, method: :get, :class => "navbar-form navbar-left" do %>
             <div class="form-group">
@@ -13,6 +12,24 @@
         <% end %>
     </p>
 </div>
+<br class="visible-xs">
+<br class="visible-xs">
+<br class="visible-xs">
+<div class="auction-search visible-xs">
+    <p>
+        <%= form_tag auctions_path, method: :get do %>
+        <div style="float: left; width: auto;">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control search-small" %>
+        </div>
+        <div style="float: left; width: auto;">
+            <%= submit_tag "Search", :name => nil, class: "btn btn-info" %>
+        </div>
+    <% end %>
+    </p>
+</div>
+<br class="visible-xs">
+<br class="visible-xs">
+<br class="visible-xs">
 
 <table class="table table-bordered table-striped table-responsive">
     <thead>

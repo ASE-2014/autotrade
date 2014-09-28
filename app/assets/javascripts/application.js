@@ -23,21 +23,31 @@ var minutes;
 var seconds;
 var result;
 
-function countdown_timer(){
+function countdownTimer(){
     remaining--;
-    hours = parseInt( remaining / 3600 ) % 24;
-    minutes = parseInt( remaining / 60 ) % 60;
-    seconds = remaining % 60;
-    result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-    if (remaining >= 0){
-        document.getElementById('countdown').innerHTML = result.substring(0, 8);
-    }
-
+    formatDurationPos(remaining);
     if(remaining == 0){
         clearInterval(cinterval);
     }
 }
 
-// 1,000 means 1 second.
-cinterval = setInterval('countdown_timer()', 1000);
+function formatDuration(duration){
+    hours = parseInt( duration / 3600 );
+    minutes = parseInt( duration / 60 ) % 60;
+    seconds = Math.floor(duration % 60);
+    result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+}
+
+function formatDurationPos(remaining){
+    if (remaining >= 0){
+        formatDuration(remaining);
+        document.getElementById('countdown').innerHTML = result;
+    }
+    else {
+        document.getElementById('countdown').innerHTML = "Auction closed.";
+    }
+}
+
+// 250 means .25 second,
+cinterval = setInterval('countdownTimer()', 1000);
 

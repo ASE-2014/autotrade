@@ -1,14 +1,15 @@
 <script>
     remaining = <%= @auction.time_remaining %>;
-    if (remaining > 0)
-    setTimeout(function(){
-        window.location.reload(1);
-    }, remaining *1000);
+    formatDurationPos(remaining);
+    if (remaining>0)
+        setTimeout(function () {
+            window.location.reload(1);
+        }, remaining * 1000);
 </script>
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <span id="countdown"><%= format_duration_if_pos(@auction.time_remaining) %></span></strong></h2>
+    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <span id="countdown"><script>document.write(result)</script></span></strong></h2>
     <p>
         <%= @auction.running? ? "Time remaining" : "" %>&nbsp;
     </p>
@@ -30,11 +31,6 @@
     </p>
     <p><strong>Related tweets:</strong></p>
     <%= render partial: 'tweet', collection: @tweets %>
-    <hr>
-    <p>
-        <strong>All bids (for debugging):</strong>
-    </p>
-    <%= render @bids %>
     <hr>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
