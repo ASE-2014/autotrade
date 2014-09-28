@@ -1,6 +1,6 @@
 <h1>Edit auction</h1>
 
-<%= form_for @auction, class: "form-group" do |f| %>
+<%= form_for @auction do |f| %>
     <% if @auction.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@auction.errors.count, "error") %> prohibited
@@ -14,16 +14,13 @@
     <% end %>
     <p>
         <%= f.label :title %><br>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title %>
     </p>
     <p>
         <%= f.label :description %><br>
-        <%= f.text_area :description, class: "form-control" %>
+        <%= f.text_area :description %>
     </p>
-    <div style="float: left; width: auto;">
-        <%= f.submit class: "btn btn-success" %>
-    </div>
+    <p>
+        <%= f.submit %>
+    </p>
 <% end %>
-<div style="float: right; width: auto;">
-    <%= button_to 'Discard', auction_path(@auction), method: :get, class: "btn btn-warning" %>
-</div>

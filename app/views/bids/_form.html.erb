@@ -1,13 +1,14 @@
-<p class="bid-control text-right hidden-xs">Simple bid:</p>
 <%= form_for([@auction, @auction.bids.build]) do |f| %>
+    <p>
+        <%= f.label 'Overbid current bid' %>
         <%= f.hidden_field(:max_bid, :value => min_bid) %>
-        <%= f.submit "Bid "+number_with_delimiter(@auction.price.round, delimiter: "`").to_s + " CHF", class: "btn btn-success bid-control" %>
+        <%= f.submit %>
+    </p>
 <% end %>
-<p class="bid-control text-right hidden-xs"><br>Custom maximum bid:</p>
-<br class="visible-xs">
-<br class="visible-xs">
-<br class="visible-xs">
-<%= form_for([@auction, @auction.bids.build], :class => "form-inline") do |g| %>
-    <%= g.submit "Bid", class: "btn btn-success bid-control bid-control-semi" %>
-    <%= g.number_field(:max_bid, :required => true, :min => min_bid, :placeholder => "CHF", class: "form-control bid-control bid-control-semi") %>
+<%= form_for([@auction, @auction.bids.build]) do |g| %>
+    <p>
+        <%= g.label :max_bid %>
+        <%= g.number_field(:max_bid, :required => true, :min => min_bid) %>
+        <%= g.submit %>
+    </p>
 <% end %>

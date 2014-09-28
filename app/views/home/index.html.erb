@@ -1,3 +1,4 @@
-<h1><%= fa_icon "home" %> Home</h1>
-<h1 class="logo-single text-center"><%= fa_icon "car" %></h1>
-
+<h1>Home</h1>
+<%= link_to 'Auctions', controller: 'auctions' %>
+<%= link_to 'Edit Profile', edit_user_registration_path %>
+<%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
