@@ -24,7 +24,7 @@ arun = User.create(email: 'a@s.ch',
 multipla = Auction.create(title: 'Fiat Multipla',
                           description: 'I just love this car, but I need the money so bad!',
                           price: 1000,
-                          duration: 100,
+                          duration: 1,
                           user: arun)
 
 veyron_supersport = Auction.create(title: 'Bugatti Veyron Supersport',
