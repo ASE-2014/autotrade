@@ -27,9 +27,11 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bcrypt (3.1.7-x86-mingw32)
+    buftok (0.2.0)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -44,11 +46,19 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    equalizer (0.0.9)
     erubis (2.7.0)
     execjs (2.2.1)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
+    google-search (1.0.3)
+      json
     hike (1.2.3)
+    http (0.6.2)
+      http_parser.rb (~> 0.6.0)
+    http_parser.rb (0.6.0)
     i18n (0.6.11)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
@@ -60,9 +70,13 @@ GEM
     libv8 (3.16.14.7)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
     mime-types (2.3)
     minitest (5.4.1)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
+    naught (1.0.0)
     orm_adapter (0.4.0)
     pg (0.17.1)
     pg (0.17.1-x86-mingw32)
@@ -102,6 +116,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_oauth (0.2.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -121,6 +136,17 @@ GEM
     tilt (1.4.1)
     turbolinks (2.3.0)
       coffee-rails
+    twitter (5.11.0)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      equalizer (~> 0.0.9)
+      faraday (~> 0.9.0)
+      http (~> 0.6.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.2.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     tzinfo-data (1.2014.7)
@@ -139,6 +165,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   font-awesome-rails (~> 4.2.0.0)
+  google-search
   jbuilder (~> 2.0)
   jquery-rails
   pg
@@ -149,5 +176,6 @@ DEPENDENCIES
   sqlite3
   therubyracer
   turbolinks
+  twitter
   tzinfo-data
   uglifier (>= 1.3.0)

@@ -31,14 +31,14 @@
                     <strong><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
                 </div>
                 <div style="float: left; width: auto;">
-                    <%= if auction.user == @current_user then button_to 'Edit', edit_auction_path(auction), :method => "get", class: "btn btn-warning btn-xs" end %>
+                    <%= if auction.user == current_user then button_to 'Edit', edit_auction_path(auction), :method => "get", class: "btn btn-warning btn-xs" end %>
                 </div><div style="float: left; width: 2px;"><p>&nbsp;</p>
             </div>
                 <div style="float: left; width: auto;">
-                <%= if (auction.user == @current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
+                <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
                 </div>
             </td>
-            <td><%= if auction.user == @current_user then "you" else auction.user.username end %></td>
+            <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
             <td class="text-right"><%= auction.time_remaining_string %></td>
             <td class="text-right"><%= number_with_delimiter(auction.price.round, delimiter: "'") %> CHF</td>
         </tr>

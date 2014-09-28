@@ -27,7 +27,6 @@ class AuctionsController < ApplicationController
     else
       @auctions = Auction.all.order('created_at DESC')
     end
-    @current_user = current_user
   end
 
   def show
