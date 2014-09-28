@@ -1,7 +1,7 @@
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= fa_icon "clock-o" %> <%= @auction.time_remaining_string %></strong></h2>
+    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <%= @auction.time_remaining_string %></strong></h2>
     <p>
         Time remaining
     </p>
@@ -24,7 +24,7 @@
     <hr>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
-    <h1>Bids <%= fa_icon "dollar" %></h1>
+    <h1>Price <%= fa_icon "usd" %></h1>
     <hr>
     <h2>
         <strong><%= @auction.price.round %> CHF</strong>
