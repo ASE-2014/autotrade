@@ -1,9 +1,22 @@
+<script>
+    jQuery(document).ready(function() {
+        var newYear = new Date();
+        newYear = new Date(newYear.getFullYear() + 1, 1 - 1, 1);
+        $("#auction-countdown").countdown({until: newYear, format: 'HMS'});
+        alert("Started");
+    });
+</script>
+
+
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
     <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <%= format_duration_if_pos(@auction.time_remaining) %></strong></h2>
+
+    <div id="auction-countdown"></div>
+
     <p>
-        <%= @auction.running? ? "Time remaining" : "" %>&nbsp;
+        <%= @auction.running? ? "Time remaining" : "" %>
     </p>
     <hr>
     <p>
