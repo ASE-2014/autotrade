@@ -15,7 +15,12 @@
         <%= @auction.description %>
     </p>
     <p>
+        <% @images.each do |image| %>
+            <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
+        <% end %>
     </p>
+    <h2>Related tweets:</h2>
+    <%= render partial: 'tweet', collection: @tweets %>
     <hr>
     <p>
         <strong>All bids (for debugging):</strong>
@@ -25,9 +30,7 @@
 </div>
 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
     <h1><%= fa_icon "gavel" %></h1>
-    <hr>
     <h2>
-
         <strong><%= number_with_delimiter(@auction.price.round, delimiter: "'") %> CHF</strong>
     </h2>
     <p>
