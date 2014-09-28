@@ -21,12 +21,12 @@ class AuctionsController < ApplicationController
   end
 
   def index
+    # TODO: should really order by time remaining, ASC. Not trivial because time remaining isn't stored in DB...
     if params[:search]
       @auctions = Auction.search(params[:search]).order("created_at DESC")
     else
       @auctions = Auction.all.order('created_at DESC')
     end
-    @current_user = current_user
   end
 
   def show
@@ -76,4 +76,8 @@ class AuctionsController < ApplicationController
     @images
   end
 
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> feature/bootstrap

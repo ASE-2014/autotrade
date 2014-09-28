@@ -49,13 +49,52 @@ class Auction < ActiveRecord::Base
   end
 
   def is_first_bid?
-    bids.count <= 1
+    self.bids.count <= 1
   end
 
   def less_mins_remaining_than? n
     (((self.created_at + self.duration*60) - Time.now) - (n*60)) < 0
   end
 
+<<<<<<< HEAD
+=======
+  def time_remaining
+    (self.created_at + self.duration*60) - Time.now
+  end
+
+  def time_remaining_string
+    self.running? ? (self.hours_remaining_string + ":" + self.minutes_remaining_string + ":" + self.seconds_remaining_string) : "Auction finished."
+  end
+
+  def hours_remaining
+    ((self.time_remaining/3600).floor).to_s
+  end
+
+  def minutes_remaining
+    (((self.time_remaining%3600)/60).floor).to_s
+  end
+
+  def seconds_remaining
+    ((self.time_remaining%60).floor).to_s
+  end
+
+  def hours_remaining_string
+    self.hours_remaining.length==1 ? ("0"+self.hours_remaining) : self.hours_remaining
+  end
+
+  def minutes_remaining_string
+    self.minutes_remaining.length==1 ? ("0"+self.minutes_remaining) : self.minutes_remaining
+  end
+
+  def seconds_remaining_string
+    self.seconds_remaining.length==1 ? ("0"+self.seconds_remaining) : self.seconds_remaining
+  end
+
+  def running?
+    self.time_remaining>0
+  end
+
+>>>>>>> feature/bootstrap
   def tweets
     options = {count: 6, result_type: 'recent'}
     $twitter.search(self.title, options).take(6) #somehow the count argument doesn't work...
