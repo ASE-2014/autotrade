@@ -11,15 +11,17 @@
         <%= if @auction.user == @current_user then "you" else @auction.user.username end %>
     </p>
     <p>
-        <strong>Description:</strong>
+        <strong>Description:</strong></p>
+    <p>
         <%= @auction.description %>
     </p>
+    <p><strong>Pictures:</strong></p>
     <p>
         <% @images.each do |image| %>
             <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
         <% end %>
     </p>
-    <h2>Related tweets:</h2>
+    <p><strong>Related tweets:</strong></p>
     <%= render partial: 'tweet', collection: @tweets %>
     <hr>
     <p>
