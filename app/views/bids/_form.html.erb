@@ -2,7 +2,8 @@
 <%= form_for([@auction, @auction.bids.build]) do |f| %>
         <%= f.hidden_field(:max_bid, :value => min_bid) %>
         <%= f.submit "Bid "+number_with_delimiter(min_bid.round, delimiter: "`").to_s + " CHF", class: "btn btn-success bid-control" %>
-<% end %>
+<% end %><div style="float: left; width: 50px; height: 50px;"><p>&nbsp;</p>
+</div>
 <p class="bid-control text-right hidden-xs"><br>Custom maximum bid:</p>
 <br class="visible-xs">
 <br class="visible-xs">
