@@ -3,7 +3,7 @@ class PicturesController < ApplicationController
 
   def create
     @auction = Auction.find(params[:auction_id])
-    @picture = @auction.picture.create(picture_params)
+    @picture = @auction.pictures.create(picture_params)
     @picture.save
 
     redirect_to auction_path(@auction)
