@@ -42,7 +42,11 @@
     <% end %>
     <p><strong>Users Pictures:</strong></p>
     <% @user_pictures.each do |picture| %>
-        <%= image_tag picture.url %>
+        <% if is_own_auction? %>
+            <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture)%>
+        <% else %>
+           <%= image_tag picture.url %>
+        <% end %>
     <% end %>
     <p>
         <% if is_own_auction?%>
