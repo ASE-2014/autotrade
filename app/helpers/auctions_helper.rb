@@ -8,7 +8,7 @@ module AuctionsHelper
     if seconds > 0
       format_duration(seconds)
     else
-      "Auction closed."
+      "closed"
     end
   end
 

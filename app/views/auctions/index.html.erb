@@ -12,10 +12,8 @@
     <% end %>
     </p>
 </div>
-<br class="visible-xs">
-<br class="visible-xs">
-<br class="visible-xs">
-<div class="auction-search visible-xs">
+<div style="diyplay: block; height: 75px;" class="visible-xs"></div>
+<div class="pull-left visible-xs">
     <p>
         <%= form_tag auctions_path, method: :get do %>
         <div style="float: left; width: auto;">
@@ -24,20 +22,19 @@
         <div style="float: left; width: auto;">
             <%= submit_tag "Search", :name => nil, class: "btn btn-info" %>
         </div>
-    <% end %>
+        <div style="diyplay: block; height: 20px;" class="visible-xs"></div>
+
+<% end %><br>
     </p>
 </div>
-<br class="visible-xs">
-<br class="visible-xs">
-<br class="visible-xs">
 
 <table class="table table-bordered table-striped table-responsive">
     <thead>
     <tr>
-        <th><%= fa_icon "car" %> Car type</th>
-        <th><%= fa_icon "user" %> Seller</th>
-        <th><%= fa_icon "clock-o" %> Time Remaining</th>
-        <th><%= fa_icon "gavel" %> Highest bid</th>
+        <th><%= fa_icon "car" %><span class="hidden-xs"> Car type</span></th>
+        <th><%= fa_icon "user" %><span class="hidden-xs"> Seller</span></th>
+        <th><%= fa_icon "clock-o" %><span class="hidden-xs"> Time Remaining</span></th>
+        <th><%= fa_icon "gavel" %><span class="hidden-xs"> Highest bid</span></th>
     </tr>
     </thead>
     <tbody>
@@ -45,7 +42,8 @@
         <tr>
             <td>
                 <div style="float: left; width: auto;">
-                    <strong><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
+                    <strong class="hidden-xs"><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
+                    <strong class="visible-xs"><%= link_to (auction.title.length > 20 ? auction.title[0,20]+"..." : auction.title), auction_path(auction) %>&nbsp;</strong>
                 </div>
                 <div style="float: left; width: auto;">
                     <%= if auction.user == current_user then button_to 'Edit', edit_auction_path(auction), :method => "get", class: "btn btn-warning btn-xs" end %>
