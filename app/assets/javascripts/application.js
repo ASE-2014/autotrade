@@ -21,7 +21,7 @@ var cinterval;
 var hours;
 var minutes;
 var seconds;
-var result;
+var result = "Auction closed.";
 
 function countdownTimer(){
     remaining--;
@@ -41,11 +41,8 @@ function formatDuration(duration){
 function formatDurationPos(remaining){
     if (remaining >= 0){
         formatDuration(remaining);
-        document.getElementById('countdown').innerHTML = result;
     }
-    else {
-        document.getElementById('countdown').innerHTML = "Auction closed.";
-    }
+    document.getElementById('countdown').innerHTML = result;
 }
 
 // 250 means .25 second,
