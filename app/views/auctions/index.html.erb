@@ -2,25 +2,39 @@
     <h1><%= fa_icon "list-ul" %> Auctions</h1>
 </div>
 
-
-<div class="pull-right auction-search">
+<div class="pull-right auction-search hidden-xs">
     <p>
         <%= form_tag auctions_path, method: :get, :class => "navbar-form navbar-left" do %>
-            <div class="form-group">
-                <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
-            </div>
-            <%= submit_tag "Search", :name => nil, class: "btn btn-info pull-right" %>
-        <% end %>
+        <div class="form-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
+        </div>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-info pull-right" %>
+    <% end %>
+    </p>
+</div>
+<div style="diyplay: block; height: 75px;" class="visible-xs"></div>
+<div class="pull-left visible-xs">
+    <p>
+        <%= form_tag auctions_path, method: :get do %>
+        <div style="float: left; width: auto;">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control search-small" %>
+        </div>
+        <div style="float: left; width: auto;">
+            <%= submit_tag "Search", :name => nil, class: "btn btn-info" %>
+        </div>
+        <div style="diyplay: block; height: 20px;" class="visible-xs"></div>
+
+<% end %><br>
     </p>
 </div>
 
 <table class="table table-bordered table-striped table-responsive">
     <thead>
     <tr>
-        <th><%= fa_icon "car" %> Car type</th>
-        <th><%= fa_icon "user" %> Seller</th>
-        <th><%= fa_icon "clock-o" %> Time Remaining</th>
-        <th><%= fa_icon "gavel" %> Highest bid</th>
+        <th><%= fa_icon "car" %><span class="hidden-xs"> Car type</span></th>
+        <th><%= fa_icon "user" %><span class="hidden-xs"> Seller</span></th>
+        <th><%= fa_icon "clock-o" %><span class="hidden-xs"> Time Remaining</span></th>
+        <th><%= fa_icon "gavel" %><span class="hidden-xs"> Highest bid</span></th>
     </tr>
     </thead>
     <tbody>
@@ -28,18 +42,36 @@
         <tr>
             <td>
                 <div style="float: left; width: auto;">
-                    <strong><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
+                    <strong class="hidden-xs"><%= link_to auction.title, auction_path(auction) %>&nbsp;</strong>
+                    <strong class="visible-xs"><%= link_to (auction.title.length > 20 ? auction.title[0,20]+"..." : auction.title), auction_path(auction) %>&nbsp;</strong>
                 </div>
                 <div style="float: left; width: auto;">
                     <%= if auction.user == current_user then button_to 'Edit', edit_auction_path(auction), :method => "get", class: "btn btn-warning btn-xs" end %>
                 </div><div style="float: left; width: 2px;"><p>&nbsp;</p>
             </div>
                 <div style="float: left; width: auto;">
-                <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
+                    <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
                 </div>
             </td>
             <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
-            <td class="text-right"><%= format_duration_if_pos(auction.time_remaining) %></td>
+            <script>
+                jQuery(document).ready(function() {
+                    if(<%= auction.time_remaining > 0 %>) {
+                        $('#<%= auction.__id__ %>').countdown('<%= ((Time.now.to_f * 1000) + ((auction.time_remaining * 1000))).to_i %>')
+                                .on('update.countdown', function (event) {
+                                    var $this = $(this).html(event.strftime(''
+                                            + '<span>%d</span>:'
+                                            + '<span>%H</span>:'
+                                            + '<span>%M</span>:'
+                                            + '<span>%S</span>'))
+                                });
+                    }
+                    else {
+                        $('#<%= auction.__id__ %>').html("closed");
+                    }
+                });
+            </script>
+            <td id="<%= auction.__id__ %>" class="text-right"></td>
             <td class="text-right"><%= number_with_delimiter(auction.price.round, delimiter: "'") %> CHF</td>
         </tr>
     <% end %>

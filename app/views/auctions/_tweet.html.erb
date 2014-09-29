@@ -1,4 +1,4 @@
 <p>
-    <%= tweet.text %>
-    <span><%= time_ago_in_words(tweet.created_at) %> ago</span>
+    "<%= tweet.text %>"<br>
+    <small><%=  fa_icon "twitter" %> <%= time_ago_in_words(tweet.created_at) %> ago by <%= tweet.user.username %></small>
 </p>

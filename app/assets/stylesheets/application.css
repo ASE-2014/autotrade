@@ -37,10 +37,18 @@
     margin-right: -14px;
 }
 
-.logo-single {
+.logo-large {
     font-size: 250px;
 }
 
+.logo-medium {
+    font-size:160px;
+}
+
+.logo-small {
+    font-size:100px;
+}
+
 .logo {
-    font-size: 70px;
+    font-size: 50px;
 }
