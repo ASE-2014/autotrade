@@ -1,0 +1,6 @@
+<div class="input-append">
+    <%= form_for([@auction, @auction.pictures.build]) do |f| %>
+        <%= f.text_field(:url) %>
+        <%= f.submit "Add picture", class: "btn-mini btn-success" %>
+    <% end %>
+</div>

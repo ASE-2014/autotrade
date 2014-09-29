@@ -37,9 +37,12 @@
         <%= @auction.description %>
     </p>
     <p><strong>Pictures:</strong></p>
+    <% @images.each do |image| %>
+        <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
+    <% end %>
     <p>
-        <% @images.each do |image| %>
-            <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
+        <% if is_own_auction?%>
+            <%= render "pictures/form" %>
         <% end %>
     </p>
     <p><strong>Related tweets:</strong></p>
