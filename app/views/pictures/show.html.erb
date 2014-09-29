@@ -1,5 +1,5 @@
-<div class="pull-left">
     <h1>Your picture: </h1>
-    <%= image_tag @picture.url %>
-
-</div>
+    <p>
+        <%= image_tag @picture.url %>
+    </p>
+    <%= link_to "Delete picture", auction_picture_path(@auction, @picture), method: :delete, class: 'btn btn-danger' %>

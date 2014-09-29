@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-  before_filter  :owns_auction!
+  before_filter  :owns_auction_nested_resource!
 
   def create
     @auction = Auction.find(params[:auction_id])
@@ -12,6 +12,13 @@ class PicturesController < ApplicationController
   def show
     @auction = Auction.find(params[:auction_id])
     @picture = @auction.pictures.find(params[:id])
+  end
+
+  def destroy
+    @auction = Auction.find(params[:auction_id])
+    @picture = @auction.pictures.find(params[:id])
+    @picture.destroy
+    redirect_to auction_path(@auction)
   end
 
   def picture_params
