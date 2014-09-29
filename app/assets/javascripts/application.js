@@ -16,35 +16,7 @@
 //= require_tree .
 
 //= require bootstrap.min
+//= require countdown
 
-var cinterval;
-var hours;
-var minutes;
-var seconds;
-var result = "Auction closed.";
 
-function countdownTimer(){
-    remaining--;
-    formatDurationPos(remaining);
-    if(remaining == 0){
-        clearInterval(cinterval);
-    }
-}
-
-function formatDuration(duration){
-    hours = parseInt( duration / 3600 );
-    minutes = parseInt( duration / 60 ) % 60;
-    seconds = Math.floor(duration % 60);
-    result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-}
-
-function formatDurationPos(remaining){
-    if (remaining >= 0){
-        formatDuration(remaining);
-    }
-    document.getElementById('countdown').innerHTML = result;
-}
-
-// 250 means .25 second,
-cinterval = setInterval('countdownTimer()', 1000);
 

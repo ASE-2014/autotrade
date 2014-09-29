@@ -1,18 +1,16 @@
 <script>
+    // get value of the remaining time
     remaining = <%= @auction.time_remaining %>;
-    formatDurationPos(remaining);
-    if (remaining>0)
-        setTimeout(function () {
-            window.location.reload(1);
-        }, remaining * 1000);
+    // update the output for the remaining time
+    updateOutput(remaining);
+    // set the oage to refresh when the auction finishes (= when remaining time runs out)
+    if (remaining>0) refreshPageIn(remaining);
 </script>
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %> <span id="countdown"><script>document.write(result)</script></span></strong></h2>
-    <p>
-        <%= @auction.running? ? "Time remaining" : "" %>&nbsp;
-    </p>
+    <h2><strong><%= fa_icon "clock-o" %> <span id="countdown"><script>document.write(result)</script></span></strong></h2>
+    <p>Time remaining</p>
     <hr>
     <p>
         <strong>Seller:</strong>
@@ -40,7 +38,7 @@
         <strong><%= number_with_delimiter(@auction.price.round, delimiter: "'") %> CHF</strong>
     </h2>
     <p>
-        <%= @auction.bids.empty? ? "Starting" : (@auction.running? ? "Current" : "Winning") %> bid
+        <%= @auction.running? ? (@auction.bids.empty? ? "Starting" : "Current") : "Final" %> bid
         <%= @bidder.nil? ? '' : ('by '+ (@bidder.eql?(current_user) ? "you" : @bidder.username)) %>
     </p>
     <hr>

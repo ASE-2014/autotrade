@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>AUTOTRADE</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="navbar navbar-inverse" role="navigation">
@@ -57,7 +57,7 @@
 
 <%= yield %>
 
-    <div class="container" style="display: block">&nbsp;</div>
+    <div class="container" style="display: block"><br><br></div>
  </div>
 </body>
 </html>
