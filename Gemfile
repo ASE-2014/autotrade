@@ -59,3 +59,6 @@ gem 'twitter'
 
 # For fetching images from google
 gem 'google-search'
+
+# Needed for js stuff
+gem 'jquery-countdown-rails'
