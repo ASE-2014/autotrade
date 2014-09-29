@@ -1,6 +1,7 @@
 class Auction < ActiveRecord::Base
 
   has_many :bids
+  has_many :pictures
   belongs_to :user
 
   validates :title, presence: true, length: {minimum: 3}
