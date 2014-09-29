@@ -1,16 +1,20 @@
 <script>
     jQuery(document).ready(function() {
         if(<%= @auction.time_remaining > 0 %>) {
-            $('#clock').countdown('<%= ((Time.now.to_f * 1000) + ((@auction.time_remaining * 1000)) ).to_i %>')
+            $('#clock').countdown('<%= ((Time.now.to_f * 1000) + ((@auction.time_remaining * 1000)+1) ).to_i %>')
                 .on('update.countdown', function (event) {
                     var $this = $(this).html(event.strftime(''
-                        + '<span>%H</span> hr '
-                        + '<span>%M</span> min '
-                        + '<span>%S</span> sec'))
+                        + '<span>%d</span>:'
+                        + '<span>%H</span>:'
+                        + '<span>%M</span>:'
+                        + '<span>%S</span>'))
                 })
                 .on('finish.countdown', function (event) {
                     location.reload(true);
                 });
+        }
+        else {
+            $('#clock').html("Auction closed.");
         }
     });
 </script>
@@ -19,11 +23,9 @@
 <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
-    <h2><strong><%= @auction.running? ? (fa_icon "clock-o" ) : (fa_icon "gavel" )  %><div id="clock"></div></strong></h2>
+    <h2><strong><%= fa_icon "clock-o" %> <span id="clock"></span></strong></h2>
 
-    <p>
-        <%= @auction.running? ? "Time remaining" : "" %>
-    </p>
+    <p>Time remaining</p>
     <hr>
     <p>
         <strong>Seller:</strong>
@@ -56,7 +58,7 @@
         <strong><%= number_with_delimiter(@auction.price.round, delimiter: "'") %> CHF</strong>
     </h2>
     <p>
-        <%= @auction.bids.empty? ? "Starting" : (@auction.running? ? "Current" : "Winning") %> bid
+        <%= @auction.running? ? (@auction.bids.empty? ? "Starting" : "Current") : "Final"  %> bid
         <%= @bidder.nil? ? '' : ('by '+ (@bidder.eql?(current_user) ? "you" : @bidder.username)) %>
     </p>
     <hr>
