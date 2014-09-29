@@ -1,17 +1,17 @@
 <script>
     jQuery(document).ready(function() {
-
-        $('#clock').countdown('<%= ((Time.now.to_f * 1000) + ((@auction.time_remaining * 1000)) ).to_i %>')
-            .on('update.countdown', function (event) {
-                var $this = $(this).html(event.strftime(''
-                    + '<span>%H</span> hr '
-                    + '<span>%M</span> min '
-                    + '<span>%S</span> sec'))
-                    .on('finish.countdown', function (event) {
-                        location.reload(true);
-                    });
-            });
-
+        if(<%= @auction.time_remaining > 0 %>) {
+            $('#clock').countdown('<%= ((Time.now.to_f * 1000) + ((@auction.time_remaining * 1000)) ).to_i %>')
+                .on('update.countdown', function (event) {
+                    var $this = $(this).html(event.strftime(''
+                        + '<span>%H</span> hr '
+                        + '<span>%M</span> min '
+                        + '<span>%S</span> sec'))
+                })
+                .on('finish.countdown', function (event) {
+                    location.reload(true);
+                });
+        }
     });
 </script>
 
