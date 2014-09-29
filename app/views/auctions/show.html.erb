@@ -43,9 +43,9 @@
     <p><strong>Users Pictures:</strong></p>
     <% @user_pictures.each do |picture| %>
         <% if is_own_auction? %>
-            <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture)%>
+            <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture), class: 'pseudo-thumbnail'%>
         <% else %>
-           <%= image_tag picture.url %>
+           <%= image_tag picture.url , class: 'pseudo-thumbnail'%>
         <% end %>
     <% end %>
     <p>
