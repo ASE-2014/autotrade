@@ -54,7 +54,24 @@
                 </div>
             </td>
             <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
-            <td class="text-right"><%= format_duration_if_pos(auction.time_remaining) %></td>
+            <script>
+                jQuery(document).ready(function() {
+                    if(<%= auction.time_remaining > 0 %>) {
+                        $('#<%= auction.__id__ %>').countdown('<%= ((Time.now.to_f * 1000) + ((auction.time_remaining * 1000))).to_i %>')
+                                .on('update.countdown', function (event) {
+                                    var $this = $(this).html(event.strftime(''
+                                            + '<span>%d</span>:'
+                                            + '<span>%H</span>:'
+                                            + '<span>%M</span>:'
+                                            + '<span>%S</span>'))
+                                });
+                    }
+                    else {
+                        $('#<%= auction.__id__ %>').html("closed");
+                    }
+                });
+            </script>
+            <td id="<%= auction.__id__ %>" class="text-right"></td>
             <td class="text-right"><%= number_with_delimiter(auction.price.round, delimiter: "'") %> CHF</td>
         </tr>
     <% end %>
