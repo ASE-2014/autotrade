@@ -36,10 +36,21 @@
     <p>
         <%= @auction.description %>
     </p>
-    <p><strong>Pictures:</strong></p>
+    <p><strong>Google Pictures:</strong></p>
+    <% @google_images.each do |image| %>
+        <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
+    <% end %>
+    <p><strong>Users Pictures:</strong></p>
+    <% @user_pictures.each do |picture| %>
+        <% if is_own_auction? %>
+            <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture), class: 'pseudo-thumbnail'%>
+        <% else %>
+           <%= image_tag picture.url , class: 'pseudo-thumbnail'%>
+        <% end %>
+    <% end %>
     <p>
-        <% @images.each do |image| %>
-            <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
+        <% if is_own_auction?%>
+            <%= render "pictures/form" %>
         <% end %>
     </p>
     <p><strong>Related tweets:</strong></p>

@@ -34,7 +34,8 @@ class AuctionsController < ApplicationController
     @bids = @auction.bids.sort_by{ |b| [-b.max_bid, b.created_at] } #sorts bid by max_bid DESC, created_at ASC
     @bidder = (@bids.first.nil? ? nil : @bids.first.user)
     # Fetch images from google
-    @images = find_images(@auction.title)
+    @google_images = find_google_images(@auction.title)
+    @user_pictures =  @auction.pictures
     @tweets = @auction.tweets
   end
 
@@ -68,7 +69,7 @@ class AuctionsController < ApplicationController
     params.require(:auction).permit(:title, :description, :price, :duration)
   end
 
-  def find_images(name)
+  def find_google_images(name)
     @images = Array.new
     Google::Search::Image.new(:query => name).first(5).each do |image|
       @images.push image

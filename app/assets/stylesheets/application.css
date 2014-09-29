@@ -52,3 +52,12 @@
 .logo {
     font-size: 50px;
 }
+
+
+/* Pseudo-Thumbnail, because I didn't really want to write server-side code for auction.pictures thumbnails... */
+.pseudo-thumbnail {
+    max-width:150px;
+    max-height:150px;
+    width:auto;
+    height:auto;
+}
