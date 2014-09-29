@@ -2,17 +2,34 @@
     <h1><%= fa_icon "list-ul" %> Auctions</h1>
 </div>
 
-
-<div class="pull-right auction-search">
+<div class="pull-right auction-search hidden-xs">
     <p>
         <%= form_tag auctions_path, method: :get, :class => "navbar-form navbar-left" do %>
-            <div class="form-group">
-                <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
-            </div>
-            <%= submit_tag "Search", :name => nil, class: "btn btn-info pull-right" %>
-        <% end %>
+        <div class="form-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
+        </div>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-info pull-right" %>
+    <% end %>
     </p>
 </div>
+<br class="visible-xs">
+<br class="visible-xs">
+<br class="visible-xs">
+<div class="auction-search visible-xs">
+    <p>
+        <%= form_tag auctions_path, method: :get do %>
+        <div style="float: left; width: auto;">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control search-small" %>
+        </div>
+        <div style="float: left; width: auto;">
+            <%= submit_tag "Search", :name => nil, class: "btn btn-info" %>
+        </div>
+    <% end %>
+    </p>
+</div>
+<br class="visible-xs">
+<br class="visible-xs">
+<br class="visible-xs">
 
 <table class="table table-bordered table-striped table-responsive">
     <thead>
@@ -35,7 +52,7 @@
                 </div><div style="float: left; width: 2px;"><p>&nbsp;</p>
             </div>
                 <div style="float: left; width: auto;">
-                <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
+                    <%= if (auction.user == current_user and auction.bids.first.nil?) then button_to 'Delete', auction_path(auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" end %>
                 </div>
             </td>
             <td><%= if auction.user == current_user then "you" else auction.user.username end %></td>
