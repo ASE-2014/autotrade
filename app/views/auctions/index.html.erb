@@ -1,17 +1,16 @@
 <h1><%= fa_icon "list-ul" %> Auctions</h1>
-        <%= form_tag auctions_path, method: :get do %>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon hidden-xs"><%= fa_icon "search" %></span>
+
+<%= form_tag auctions_path, method: :get do %>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon hidden-xs"><%= fa_icon "search" %></span>
                 <%= text_field_tag :search, params[:search], placeholder: "Search Auctions", class: "form-control" %>
-                        <span class="input-group-btn">
+                    <span class="input-group-btn">
                 <%= submit_tag "Search", :name => nil, class: "btn btn-info" %>
-                        </span>
-            </div>
+            </span>
         </div>
-    <% end %>
-
-
+    </div>
+<% end %>
 
 <table class="table table-bordered table-striped table-responsive">
     <thead>

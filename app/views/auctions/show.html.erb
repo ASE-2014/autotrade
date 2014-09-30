@@ -19,14 +19,43 @@
     });
 </script>
 
-
-<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
     <h1><%= fa_icon "car" %> <%= @auction.title %></h1>
     <hr>
     <h2><strong><%= fa_icon "clock-o" %> <span id="clock"></span></strong></h2>
 
     <p>Time remaining</p>
     <hr>
+
+
+    <div class="visible-xs">
+        <h2>
+            <%= fa_icon "gavel" %> <strong><%= number_with_delimiter(@auction.price.round, delimiter: "'") %> CHF</strong>
+        </h2>
+        <p>
+            <%= @auction.running? ? (@auction.bids.empty? ? "Starting" : "Current") : "Final"  %> bid
+            <%= @bidder.nil? ? '' : ('by '+ (@bidder.eql?(current_user) ? "you" : @bidder.username)) %>
+        </p>
+        <hr>
+        <% unless is_own_auction? or !@auction.running? %>
+            <%= render "bids/form" %>
+        <% end %>
+        <% if is_own_auction? %>
+            <div style="float: right; width: auto;">
+                <%= if (is_own_auction? and @auction.bids.first.nil?) then button_to 'Delete', auction_path(@auction), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" end %>
+            </div>
+            <div style="float: right; width: auto;">
+                <p>&nbsp;</p>
+            </div>
+            <div style="float: right; width: auto;">
+                <%= if is_own_auction? then button_to 'Edit', edit_auction_path(@auction), :method => "get", class: "btn btn-warning" end %>
+            </div>
+        <% end %>
+        <br>
+        <br>
+        <hr>
+    </div>
+
     <p>
         <strong>Seller:</strong>
         <%= if @auction.user == @current_user then "you" else @auction.user.username end %>
@@ -37,27 +66,31 @@
         <%= @auction.description %>
     </p>
     <p><strong>Google Pictures:</strong></p>
-    <% @google_images.each do |image| %>
+    <p><% @google_images.each do |image| %>
         <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
     <% end %>
+    </p>
     <p><strong>Users Pictures:</strong></p>
-    <% @user_pictures.each do |picture| %>
+    <p><% @user_pictures.each do |picture| %>
         <% if is_own_auction? %>
             <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture), class: 'pseudo-thumbnail'%>
         <% else %>
            <%= image_tag picture.url , class: 'pseudo-thumbnail'%>
         <% end %>
     <% end %>
-    <p>
-        <% if is_own_auction?%>
-            <%= render "pictures/form" %>
-        <% end %>
     </p>
+    <% if is_own_auction?%>
+        <p>
+            <%= render "pictures/form" %>
+        </p>
+    <% end %>
+
     <p><strong>Related tweets:</strong></p>
     <%= render partial: 'tweet', collection: @tweets %>
     <hr>
 </div>
-<div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
+
+<div class="col-lg-3 col-md-3 col-sm-4 hidden-xs text-right">
     <h1><%= fa_icon "gavel" %></h1>
     <hr>
     <h2>
@@ -83,8 +116,4 @@
         </div>
     <% end %>
 </div>
-<% unless !@auction.running? %>
-<div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 text-right">
-    <hr>
-</div>
-<% end %>
+
