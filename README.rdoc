@@ -1,28 +1,29 @@
-== README
+== Autotrade
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails auctioning platform application targeted at cars. Created as an assignment for the Advanced Software Engineering lecture at the University of Fribourg.
 
-Things you may want to cover:
+=== Dependencies
 
-* Ruby version
+* Ruby (tested with 1.9.3)
 
-* System dependencies
+* Postgresql
 
-* Configuration
+* Bundler
 
-* Database creation
+* secrets.yml (not in GitHub repo, please ask one of the contributors if you would like to use it)
 
-* Database initialization
+=== Setup
 
-* How to run the test suite
+* Clone this repository
 
-* Services (job queues, cache servers, search engines, etc.)
+* Copy secrets.yml into config/ directory.
 
-* Deployment instructions
+* cd to autotrade directory.
 
-* ...
+* Run command 'bundle install' to install all dependent gems.
 
+* Run command 'rake db:migrate:reset' to setup the local sqlite3 database (includes adding some seeds). 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Run command 'rails server' to setup server. Follow the instruction to navigate to correct port in a browser.
+
+* Enjoy!
