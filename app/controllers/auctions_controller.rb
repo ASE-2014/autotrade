@@ -24,12 +24,14 @@ class AuctionsController < ApplicationController
     running_auctions = Array.new
     closed_auctions = Array.new
     if params[:search]
-      auctions = Auction.search(params[:search])
+      auctions = Auction.search(params[:search]).sort{|a,b|
+        a.time_remaining <=> b.time_remaining }
     else
-      auctions = Auction.find_by_sql("SELECT *, (created_at + duration) AS ending_at FROM auctions ORDER BY ending_at")
+      auctions = Auction.all.sort{|a,b|
+        a.time_remaining <=> b.time_remaining }
     end
     auctions.each do |a|
-      if a.running? then
+      if a.running?
         running_auctions.push(a)
       else
         closed_auctions.push(a)
