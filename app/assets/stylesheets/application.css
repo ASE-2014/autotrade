@@ -16,10 +16,6 @@
  *= require_self
  */
 
-.custom-search-form{
-    margin-top:5px;
-}
-
 .btn-small{
     margin-bottom: 0px;
 }
@@ -31,10 +27,6 @@
 
 .bid-control-semi{
     width: 100px;
-}
-
-.auction-search{
-    margin-right: -14px;
 }
 
 .logo-large {
