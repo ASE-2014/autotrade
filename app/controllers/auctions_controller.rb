@@ -21,12 +21,26 @@ class AuctionsController < ApplicationController
   end
 
   def index
-    # TODO: should really order by time remaining, ASC. Not trivial because time remaining isn't stored in DB...
+    running_auctions = Array.new
+    closed_auctions = Array.new
     if params[:search]
-      @auctions = Auction.search(params[:search]).order("created_at DESC")
+      auctions = Auction.search(params[:search])
     else
-      @auctions = Auction.all.order('created_at DESC')
+      auctions = Auction.find_by_sql("SELECT *, (created_at + duration) AS ending_at FROM auctions ORDER BY ending_at")
     end
+    auctions.each do |a|
+      if a.running? then
+        running_auctions.push(a)
+      else
+        closed_auctions.push(a)
+      end
+    end
+    running_auctions.sort{|a,b|
+      a.time_remaining  <=> b.time_remaining}
+    closed_auctions.sort{|a,b|
+      a.time_remaining  <=> b.time_remaining}.reverse
+    @auctions = running_auctions.concat closed_auctions
+
   end
 
   def show

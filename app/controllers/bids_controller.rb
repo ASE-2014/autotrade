@@ -34,8 +34,8 @@ class BidsController < ApplicationController
   end
 
   def bid_is_high_enough?
-    # bid is bigger than current price of auction or
-    # bid is equal to current price of auction and this is the first bid made
+    # max_bid is bigger than current price of auction or
+    # max_bid is equal to current price of auction and this is the first bid made
     @bid.max_bid > @auction.price or (@bid.max_bid == @auction.price and @auction.bids.empty?)
   end
 

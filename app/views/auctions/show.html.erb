@@ -70,14 +70,17 @@
         <%= image_tag image.thumbnail_uri, size: "#{image.thumbnail_width}x#{image.thumbnail_height}" %>
     <% end %>
     </p>
-    <p><strong>Users Pictures:</strong></p>
-    <p><% @user_pictures.each do |picture| %>
-        <% if is_own_auction? %>
-            <%= link_to image_tag(picture.url, border: 0), auction_picture_path(@auction, picture), class: 'pseudo-thumbnail'%>
-        <% else %>
-           <%= image_tag picture.url , class: 'pseudo-thumbnail'%>
-        <% end %>
+    <% if !@user_pictures.empty? then %>
+        <p><strong>Users Pictures:</strong></p>
     <% end %>
+
+    <p><% @user_pictures.each do |picture| %>
+            <% if is_own_auction? %>
+                <%= link_to image_tag(picture.url, class: 'pseudo-thumbnail'), auction_picture_path(@auction, picture) %>
+            <% else %>
+               <%= image_tag picture.url , class: 'pseudo-thumbnail'%>
+            <% end %>
+        <% end %>
     </p>
     <% if is_own_auction?%>
         <p>
