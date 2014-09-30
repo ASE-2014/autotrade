@@ -1,18 +1,19 @@
 == Autotrade
 
 Ruby on Rails auctioning platform application targeted at cars. Created as an assignment for the Advanced Software Engineering lecture at the University of Fribourg.
-
-=== Dependencies
+=== Live version
+http://autotrade2014.herokuapp.com/
+=== Local installation
+These instructions might not be complete, contact us if you have any problems.
+==== Dependencies
 
 * Ruby (tested with 1.9.3)
-
-* Postgresql
 
 * Bundler
 
 * secrets.yml (not in GitHub repo, please ask one of the contributors if you would like to use it)
 
-=== Setup
+==== Setup
 
 * Clone this repository
 
